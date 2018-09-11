@@ -1,5 +1,7 @@
 package de.joekoperski.icemaze;
 
+import android.graphics.Point;
+
 public class Map {
 
     public static final int INVALID_COORDS = -1;
@@ -40,7 +42,7 @@ public class Map {
             return sourceMap[x][y];
         }// if
         else {
-            return INVALID_COORDS;
+            return TileID.TILE_NO_TILE;
         }// lese
     }// getSourceMap
 
@@ -51,7 +53,7 @@ public class Map {
             return resultMap[x][y];
         }// if
         else {
-            return INVALID_COORDS;
+            return TileID.TILE_NO_TILE;
         }// else
     }// getResultMap
 
@@ -64,4 +66,19 @@ public class Map {
             }// for j
         }// for i
     }// syncMaps
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public Point find( int id) {
+        Point retVal = new Point(0,0);
+        for(int i = 0; i < width; i++ ) {
+            for(int j = 0; j< height; j++) {
+                if( sourceMap[i][j] == id) {
+                    retVal = new Point(i,j);
+                    return retVal;
+                }
+            }// for j
+        }// for i
+        return retVal;
+    }// find
 }

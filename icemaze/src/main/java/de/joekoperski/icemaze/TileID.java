@@ -23,4 +23,7 @@ public class TileID {
 
     public static final int NUM_TILE_IDS            = 19;
 
+    public static final int TILE_NO_TILE             = -1;
+
+
 }
