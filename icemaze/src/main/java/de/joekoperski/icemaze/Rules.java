@@ -1,23 +1,24 @@
 package de.joekoperski.icemaze;
 
 import android.graphics.Point;
+import android.graphics.Rect;
 
 public class Rules {
-    int levelWidth;
-    int levelHeight;
+    private int levelWidth;
+    private int levelHeight;
     private Map theMap;
     private PlayerCharacter thePlayer;
 
-    // REWORK: 11.09.2018 Testlevel
-    int level[][] = {
-              {0, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    // REWORK: 11.09.2018: Testlevel
+    private int level[][] = {
+              {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+            , {1, 0, 1, 1, 1, 1, 1, 1, 2, 1}
+            , {1, 1, 1, 1, 1, 1, 1, 2, 1, 1}
+            , {1, 2, 1, 1, 1, 1, 2, 1, 1, 2}
+            , {1, 1, 1, 2, 1, 1, 1, 1, 1, 1}
+            , {2, 1, 1, 1, 1, 1, 1, 1, 1, 1}
             , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-            , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+            , {1, 1, 1, 1, 1, 1, 2, 1, 1, 1}
             , {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
             , {1, 1, 1, 1, 1, 1, 1, 1, 1, 18}
     };
@@ -44,55 +45,39 @@ public class Rules {
         levelWidth = 10;
         levelHeight = 10;
         theMap = new Map(levelWidth, levelHeight);
-        thePlayer = new PlayerCharacter();
-
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {
                 theMap.setSourceMap(i, j, level[i][j]);
                 theMap.setResultMap(i, j, level[i][j]);
             }// for j
         }// for i
-        thePlayer.setPosition(theMap.find(TileID.TILE_START));
+        thePlayer = new PlayerCharacter(theMap.find(TileID.TILE_START));
+
+//        thePlayer.setPosition(theMap.find(TileID.TILE_START));
     }// initLevel
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public MoveResult move(Direction direction) {
+    public MoveResult move(Direction direction, boolean firstStep) {
+        MoveResult retVal;
 
-        // check playfield bounds
-        Point playerPosition = thePlayer.getPosition();
-        thePlayer.setImpulse(Direction.STILL);
-        switch (direction) {
-            case EAST:
-                if (thePlayer.getPosition().x < levelWidth - 1) {
-                    thePlayer.setImpulse(direction);
-                    playerPosition.x += 1;
-                }//if
-                break;
-            case WEST:
-                if (thePlayer.getPosition().x > 0) {
-                    thePlayer.setImpulse(direction);
-                    playerPosition.x -= 1;
-                }//if
-                break;
-            case NORTH:
-                if (thePlayer.getPosition().y > 0) {
-                    thePlayer.setImpulse(direction);
-                    playerPosition.y -= 1;
-                }//if
-                break;
-            case SOUTH:
-                if (thePlayer.getPosition().y < levelHeight - 1) {
-                    thePlayer.setImpulse(direction);
-                    playerPosition.y += 1;
-                }//if
-                break;
-            default:
-        }// switch
+        if( firstStep) {
+            thePlayer.setImpulse(direction);
+        }// if
+        thePlayer.move(new Rect(0, 0, levelWidth - 1, levelHeight - 1));
 
-        thePlayer.setImpulse(direction);
-        thePlayer.setPosition(playerPosition);
+        if(thePlayer.getImpulse() != Direction.STILL ) {
+            ITile Tile;
+            MoveResult moveResult;
 
-        return MoveResult.CONTINUE;
+
+            // TODO: 12.09.2018: Check tile action, ...
+            Tile = TileFactory.getTile(theMap.getSourceMap(thePlayer.getPosition().x, thePlayer.getPosition().y ));
+            retVal =  Tile.doAction(theMap, thePlayer);
+        }// if
+        else {
+            retVal  = MoveResult.PLAYER_STOP;
+        }// else
+        return retVal;
     }// move
 }

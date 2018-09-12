@@ -11,8 +11,9 @@ public class TileFactory {
             case TileID.TILE_ICE:
                 retVal = new TileIce();
                 break;
-//            case TileID.TILE_ROCK:
-//                break;
+            case TileID.TILE_ROCK:
+                retVal = new TileRock();
+                break;
 //            case TileID.TILE_GROW_ROCK:
 //                break;
 //            case TileID.TILE_LOCK:
@@ -47,7 +48,7 @@ public class TileFactory {
                 retVal = new TileFinish();
                 break;
             default:
-                retVal =  null;
+                retVal =  new TileIce();
 
         }// switch
         return retVal;

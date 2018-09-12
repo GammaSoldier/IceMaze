@@ -12,6 +12,7 @@ package de.joekoperski.icemaze;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 
 
 /** ************************************************************************************************
@@ -60,4 +61,26 @@ class TileFinish implements ITile {
         return BitmapFactory.decodeResource(activity.getResources(), R.drawable.tile_finish);
     }// getBitmap
 }
+
+
+/** ************************************************************************************************
+ *
+ */
+class TileRock implements ITile {
+    @Override
+    public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
+        playerCharacter.setImpulse(Direction.STILL);
+        Point pt = new Point();
+        pt.x = playerCharacter.getPreviousPosition().x;
+        pt.y = playerCharacter.getPreviousPosition().y;
+        playerCharacter.setPosition(pt);
+        return MoveResult.PLAYER_STOP;
+    }// doAction
+
+    @Override
+    public Bitmap getBitmap(Activity activity) {
+        return BitmapFactory.decodeResource(activity.getResources(), R.drawable.tile_rock);
+    }// getBitmap
+}
+
 
