@@ -1,15 +1,15 @@
 package de.joekoperski.icemaze;
 
-public class TileActionFactory {
-    public TileAction getTileAction(int id){
-        TileAction retVal;
+public class TileFactory {
+    public static ITile getTile(int id){
+        ITile retVal;
 
         switch (id) {
             case TileID.TILE_START:
-                retVal = new ActionTileStart();
+                retVal = new TileStart();
                 break;
             case TileID.TILE_ICE:
-                retVal = new ActionTileIce();
+                retVal = new TileIce();
                 break;
 //            case TileID.TILE_ROCK:
 //                break;
@@ -44,7 +44,7 @@ public class TileActionFactory {
 //            case TileID.TILE_KILL:
 //                break;
             case TileID.TILE_FINISH:
-                retVal = new ActionTileFinish();
+                retVal = new TileFinish();
                 break;
             default:
                 retVal =  null;
