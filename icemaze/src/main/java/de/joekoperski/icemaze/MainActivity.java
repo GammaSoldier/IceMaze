@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener( new View.OnClickListener() {
+        button.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -29,19 +29,31 @@ public class MainActivity extends Activity {
             }// onClick
         });
 
-        View contentView = (View)findViewById(R.id.mainLayout);
+        View contentView = (View) findViewById(R.id.mainLayout);
         contentView.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
                 Toast.makeText(MainActivity.this, "top", Toast.LENGTH_SHORT).show();
+                makeMove(Direction.NORTH);
+                render();
             }
+
             public void onSwipeRight() {
                 Toast.makeText(MainActivity.this, "right", Toast.LENGTH_SHORT).show();
+                makeMove(Direction.EAST);
+                render();
+
             }
+
             public void onSwipeLeft() {
                 Toast.makeText(MainActivity.this, "left", Toast.LENGTH_SHORT).show();
+                makeMove(Direction.WEST);
+                render();
             }
+
             public void onSwipeBottom() {
                 Toast.makeText(MainActivity.this, "bottom", Toast.LENGTH_SHORT).show();
+                makeMove(Direction.SOUTH);
+                render();
             }
 
         });
@@ -55,10 +67,14 @@ public class MainActivity extends Activity {
     }
 
 
+    private void makeMove(Direction direction) {
+        theRules.move(direction);
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void render(){
+    public void render() {
         gridBitmap theGridBitmap = new gridBitmap(this);
-        theGridBitmap.render( this, theRules.getTheMap(), theRules.getThePlayer() );
+        theGridBitmap.render(this, theRules.getTheMap(), theRules.getThePlayer());
     }// render
 
 
