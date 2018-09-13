@@ -19,19 +19,6 @@
 
     </LinearLayout>
 
-    <!--ImageView
-        android:id="@+id/imageView"
-        android:layout_width="351dp"
-        android:layout_height="347dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.529"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" /-->
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
