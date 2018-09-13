@@ -8,7 +8,18 @@
     android:background="#3d3d3d"
     tools:context=".MainActivity">
 
-    <ImageView
+    <!-- SurfaceView -->
+    <LinearLayout
+        android:layout_width="351dp"
+        android:layout_height="347dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/imageView">
+
+    </LinearLayout>
+
+    <!--ImageView
         android:id="@+id/imageView"
         android:layout_width="351dp"
         android:layout_height="347dp"
@@ -19,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" /-->
 
     <Button
         android:id="@+id/button"
