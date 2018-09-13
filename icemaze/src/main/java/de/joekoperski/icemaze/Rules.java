@@ -51,6 +51,7 @@ public class Rules {
 //                theMap.setResultMap(i, j, level[i][j]);
 //            }// for j
 //        }// for i
+        // TODO: 14.09.2018 Testcode. Use code above 
         for (int i = 0; i < levelWidth; i++) {
             for (int j = 0; j < levelHeight; j++) {
                 theMap.setSourceMap(i, j, level[j][i]);
