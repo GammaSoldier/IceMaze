@@ -12,16 +12,15 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
     Rules theRules;
-//    gridBitmap theGridBitmap;
     GameView theGridBitmap;
     LinearLayout surface;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-//        theGridBitmap = new gridBitmap(this);
         theGridBitmap = new GameView(this);
 
         surface = (LinearLayout)findViewById(R.id.imageView);
