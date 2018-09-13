@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
 
     Rules theRules;
     GameView theGridBitmap;
-    LinearLayout surface;
+    RelativeLayout surface;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         theGridBitmap = new GameView(this);
 
-        surface = (LinearLayout)findViewById(R.id.imageView);
+        surface = (RelativeLayout)findViewById(R.id.imageView);
         surface.addView(theGridBitmap);
 
         Button button = (Button) findViewById(R.id.button);
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
         theRules = new Rules();
         theRules.initLevel();
         render(true);
-    }
+    }// startGame
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
