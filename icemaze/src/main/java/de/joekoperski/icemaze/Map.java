@@ -55,7 +55,7 @@ public class Map {
         }// if
         else {
             return TileID.TILE_NO_TILE;
-        }// lese
+        }// else
     }// getSourceMap
 
 

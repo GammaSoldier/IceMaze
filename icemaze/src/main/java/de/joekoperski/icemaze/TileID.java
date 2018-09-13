@@ -14,10 +14,10 @@ public class TileID {
     public static final int TILE_TELEPORT           = 10;
     public static final int TILE_TELEPORT_TARGET    = 11;
     public static final int TILE_STICK_ONCE         = 12;
-    public static final int TILE_ENTER_NORTH        = 13;
-    public static final int TILE_ENTER_SOUTH        = 14;
-    public static final int TILE_ENTER_WEST         = 15;
-    public static final int TILE_ENTER_EAST         = 16;
+    public static final int TILE_ONEWAY_NORTH        = 13;
+    public static final int TILE_ONEWAY_SOUTH        = 14;
+    public static final int TILE_ONEWAY_WEST         = 15;
+    public static final int TILE_ONEWAY_EAST         = 16;
     public static final int TILE_KILL               = 17;
     public static final int TILE_FINISH             = 18;
 

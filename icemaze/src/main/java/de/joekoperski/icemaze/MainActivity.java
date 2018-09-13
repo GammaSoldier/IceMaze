@@ -99,6 +99,7 @@ public class MainActivity extends Activity {
             case LEVEL_RESTART:
                 // TODO: 12.09.2018: pass the same level
                 theRules.initLevel();
+                render(true);
                 break;
 
         }// switch
