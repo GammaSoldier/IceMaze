@@ -21,7 +21,7 @@ public class GameView extends SurfaceView implements Callback {
 
     private SurfaceHolder surfaceHolder;
     private GfxLoopThread gfxLoopThread;
-    private MainActivity mContext;
+    private Activity mContext;
 
     private Bitmap bmpPlayer;
     private ArrayList<Bitmap> bmpTile;
@@ -34,10 +34,10 @@ public class GameView extends SurfaceView implements Callback {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public GameView(MainActivity context) {
+    public GameView(Activity context) {
         super(context);
 
-        mContext = (MainActivity) context;
+        mContext = (Activity) context;
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
@@ -119,7 +119,9 @@ public class GameView extends SurfaceView implements Callback {
             for (int i = 0; i < map.getWidth(); i++) {
                 for (int j = 0; j < map.getHeight(); j++) {
                     canvas.drawBitmap(bmpTile.get(map.getSourceMap(i, j)), null, new Rect(i * tileWidth, j * tileHeight, (i + 1) * tileWidth, (j + 1) * tileHeight), null);
-                    canvas.drawBitmap(bmpPlayer, null, new Rect(player.getPosition().x * tileWidth, player.getPosition().y * tileHeight, (player.getPosition().x + 1) * tileWidth, (player.getPosition().y + 1) * tileHeight), null);
+                    if( player != null ) {
+                        canvas.drawBitmap(bmpPlayer, null, new Rect(player.getPosition().x * tileWidth, player.getPosition().y * tileHeight, (player.getPosition().x + 1) * tileWidth, (player.getPosition().y + 1) * tileHeight), null);
+                    }// if
                 }// for j
             }// for i
         }// if
@@ -129,11 +131,13 @@ public class GameView extends SurfaceView implements Callback {
                     if (map.getSourceMap(i, j) != map.getResultMap(i, j)) {
                         canvas.drawBitmap(bmpTile.get(map.getSourceMap(i, j)), null, new Rect(i * tileWidth, j * tileHeight, (i + 1) * tileWidth, (j + 1) * tileHeight), null);
                     }// if
-                    Point pt = player.getPosition();
-                    if (pt.x == i && pt.y == j) {
-                        Point prev = player.getPreviousPosition();
-                        canvas.drawBitmap(bmpTile.get(map.getSourceMap(prev.x, prev.y)), null, new Rect(player.getPreviousPosition().x * tileWidth, player.getPreviousPosition().y * tileHeight, (player.getPreviousPosition().x + 1) * tileWidth, (player.getPreviousPosition().y + 1) * tileHeight), null);
-                        canvas.drawBitmap(bmpPlayer, null, new Rect(player.getPosition().x * tileWidth, player.getPosition().y * tileHeight, (player.getPosition().x + 1) * tileWidth, (player.getPosition().y + 1) * tileHeight), null);
+                    if( player != null ) {
+                        Point pt = player.getPosition();
+                        if (pt.x == i && pt.y == j) {
+                            Point prev = player.getPreviousPosition();
+                            canvas.drawBitmap(bmpTile.get(map.getSourceMap(prev.x, prev.y)), null, new Rect(player.getPreviousPosition().x * tileWidth, player.getPreviousPosition().y * tileHeight, (player.getPreviousPosition().x + 1) * tileWidth, (player.getPreviousPosition().y + 1) * tileHeight), null);
+                            canvas.drawBitmap(bmpPlayer, null, new Rect(player.getPosition().x * tileWidth, player.getPosition().y * tileHeight, (player.getPosition().x + 1) * tileWidth, (player.getPosition().y + 1) * tileHeight), null);
+                        }// if
                     }// if
                 }// for j
             }// for i

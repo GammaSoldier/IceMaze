@@ -1,8 +1,11 @@
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
@@ -11,10 +14,13 @@ public class MainActivity extends Activity {
     Rules theRules;
     GameView theGridBitmap;
     RelativeLayout surface;
+    Level theLevel;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -22,6 +28,9 @@ public class MainActivity extends Activity {
 
         surface = (RelativeLayout)findViewById(R.id.imageView);
         surface.addView(theGridBitmap);
+
+        Intent anIntent = getIntent();
+        theLevel = (Level)anIntent.getSerializableExtra("Level");
 
         Button button = (Button) findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -32,13 +41,20 @@ public class MainActivity extends Activity {
             }// onClick
         });
 
+
+        Button buttonEditor = (Button) findViewById(R.id.buttonEditor);
+        buttonEditor.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent myIntent = new Intent(getBaseContext(), EditorActivity.class);
+                startActivity(myIntent);
+            }// onClick
+        });
+
+
+
         View contentView = (View) findViewById(R.id.mainLayout);
-        contentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
 
         contentView.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
@@ -67,13 +83,14 @@ public class MainActivity extends Activity {
 
         });
 
+
     }// onCreate
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void startGame() {
         theRules = new Rules();
-        theRules.initLevel();
+        theRules.initLevel(theLevel);
         render(true);
     }// startGame
 
@@ -98,7 +115,7 @@ public class MainActivity extends Activity {
                 break;
             case LEVEL_RESTART:
                 // TODO: 12.09.2018: pass the same level
-                theRules.initLevel();
+                theRules.initLevel(theLevel);
                 render(true);
                 break;
 

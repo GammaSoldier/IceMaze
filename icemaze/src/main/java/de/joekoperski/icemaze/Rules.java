@@ -41,26 +41,13 @@ public class Rules {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO pass a level to this method
-    public void initLevel() {
-        levelWidth = 10;
-        levelHeight = 10;
-        theMap = new Map(levelWidth, levelHeight);
-//        for (int i = 0; i < levelWidth; i++) {
-//            for (int j = 0; j < levelHeight; j++) {
-//                theMap.setSourceMap(i, j, level[i][j]);
-//                theMap.setResultMap(i, j, level[i][j]);
-//            }// for j
-//        }// for i
-        // TODO: 14.09.2018 Testcode. Use code above 
-        for (int i = 0; i < levelWidth; i++) {
-            for (int j = 0; j < levelHeight; j++) {
-                theMap.setSourceMap(i, j, level[j][i]);
-                theMap.setResultMap(i, j, level[j][i]);
-            }// for j
-        }// for i
+    public void initLevel(Level level) {
+        theMap = level.getMap();
+        levelWidth = theMap.getWidth();
+        levelHeight = theMap.getHeight();
+
         thePlayer = new PlayerCharacter(theMap.find(TileID.TILE_START));
 
-//        thePlayer.setPosition(theMap.find(TileID.TILE_START));
     }// initLevel
 
 

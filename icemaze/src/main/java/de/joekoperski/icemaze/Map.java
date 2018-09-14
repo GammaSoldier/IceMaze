@@ -2,7 +2,9 @@ package de.joekoperski.icemaze;
 
 import android.graphics.Point;
 
-public class Map {
+import java.io.Serializable;
+
+public class Map implements Serializable {
 
     public static final int INVALID_COORDS = -1;
     private int sourceMap[][];
