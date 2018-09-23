@@ -1,11 +1,16 @@
 package de.joekoperski.icemaze;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.net.Uri;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,9 +23,16 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.prefs.Preferences;
 
 public class EditorActivity extends Activity {
+    public static final int REQUEST_WRITE_STORAGE = 112;
+    public static final int FILE_SELECT_CODE = 123;
+
     private GameViewEditor theGridBitmap;
     private RelativeLayout surface;
     private int selectedTile;
@@ -41,7 +53,7 @@ public class EditorActivity extends Activity {
 
         theGridBitmap = new GameViewEditor(this);
 
-        surface = (RelativeLayout)findViewById(R.id.gridView);
+        surface = (RelativeLayout) findViewById(R.id.gridView);
         surface.addView(theGridBitmap);
 
         selectedTile = TileID.TILE_ICE;
@@ -50,9 +62,9 @@ public class EditorActivity extends Activity {
         Button buttonTest = (Button) findViewById(R.id.buttonTest);
         buttonTest.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(),   MainActivity.class);
+                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
                 theLevel = new Level(theMap);
-                myIntent.putExtra("Level", theLevel );
+                myIntent.putExtra("Level", theLevel);
                 startActivity(myIntent);
             }// onClick
         });
@@ -75,7 +87,6 @@ public class EditorActivity extends Activity {
                 Toast.makeText(EditorActivity.this, "Level saved", Toast.LENGTH_SHORT).show();
             }// onClick
         });
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,16 +270,16 @@ public class EditorActivity extends Activity {
                 width = Integer.parseInt(edit.getText().toString());
                 edit = (EditText) findViewById(R.id.editTextHeight);
                 height = Integer.parseInt(edit.getText().toString());
-                generateMap( width, height);
+                generateMap(width, height);
             }// onClick
         });
 
-    }
+    }// onCreate
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void generateMap(int width, int height) {
         theMap = new Map(width, height);
-        thePlayer = new PlayerCharacter(new Point(0,0));
+        thePlayer = new PlayerCharacter(new Point(0, 0));
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 theMap.setSourceMap(i, j, TileID.TILE_ICE);
@@ -278,7 +289,7 @@ public class EditorActivity extends Activity {
 
         theGridBitmap.setDimensions(width, height);
         theGridBitmap.render(this, theMap, null, true);
-    }
+    }// generateMap
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -286,56 +297,91 @@ public class EditorActivity extends Activity {
         theMap.setSourceMap(x, y, selectedTile);
         theMap.setResultMap(x, y, selectedTile);
 
-        if( selectedTile == TileID.TILE_START) {
-            thePlayer.setPosition(new Point(x,y));
+        if (selectedTile == TileID.TILE_START) {
+            thePlayer.setPosition(new Point(x, y));
         }// if
-        Log.d("Editor", "TileTouched: x = " + x + ", y = "+ y);
+        Log.d("Editor", "TileTouched: x = " + x + ", y = " + y);
         theGridBitmap.render(this, theMap, thePlayer, true);
 
-    }
+    }// TileTouched
 
-    //**********************************************************************************************
-    // try to load file
-    public static final int FILE_SELECT_CODE =0;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public void loadFile() {
-        String type="*/*";
+        String type = "*/*";
 
-        Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType(type);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(Intent.createChooser(intent, "select file") ,FILE_SELECT_CODE );
+        startActivityForResult(Intent.createChooser(intent, "select file"), FILE_SELECT_CODE);
     }// loadFile
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == FILE_SELECT_CODE  && resultCode == RESULT_OK && data != null) {
+        if (requestCode == FILE_SELECT_CODE && resultCode == RESULT_OK && data != null) {
             Uri uploadfileuri = data.getData();
             File file = new File(uploadfileuri.getPath());
+            Toast.makeText(EditorActivity.this, "File load: " + file, Toast.LENGTH_LONG).show();
+            // TODO: 23.09.2018: load file content and build level map
         }// if
     }// onActivityResult
 
 
-
-    //**********************************************************************************************
-    // try to save file
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     public void saveFile() {
-        String filename = "icemaze-";
-        String fileContents = "Hello world!";
-        FileOutputStream outputStream;
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_WRITE_STORAGE);
+        }// if
+        else {
+            // You are allowed to write external storage:
+            File root = android.os.Environment.getExternalStorageDirectory();
+            File dir = new File(root.getAbsolutePath() + "/Download");
+            dir.mkdirs();
+            File file = new File(dir, "icemaze.txt");
+            Log.d("EditorActivity", "write file to: " + file);
+            try {
+                FileOutputStream f = new FileOutputStream(file);
+                PrintWriter pw = new PrintWriter(f);
+                pw.println("Hi , How are you");
+                pw.println("Hello");
+                pw.flush();
+                pw.close();
+                f.close();
+            }// try
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }// catch
+            catch (IOException e) {
+                e.printStackTrace();
+            }// catch
+        }// else
+    }// saveFile
 
-        try {
-            outputStream = openFileOutput(filename, this.MODE_PRIVATE);
-            outputStream.write(fileContents.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }    }// loadFile
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_WRITE_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "The app was allowed to write to your storage!", Toast.LENGTH_LONG).show();
+                    // Reload the activity with permission granted or use the features what required the permission
+                }// if
+                else {
+                    Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                }// else
+                break;
+        }// switch
+    }// onRequestPermissionsResult
 
 
 }
