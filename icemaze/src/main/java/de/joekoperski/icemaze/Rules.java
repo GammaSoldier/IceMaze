@@ -40,7 +40,7 @@ public class Rules {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // TODO pass a level to this method
+    // TODO pass a level to this method.
     public void initLevel(Level level) {
         theMap = level.getMap();
         levelWidth = theMap.getWidth();

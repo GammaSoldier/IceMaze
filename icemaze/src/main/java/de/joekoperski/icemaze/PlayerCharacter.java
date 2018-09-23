@@ -1,3 +1,4 @@
+// TODO: 23.09.2018: To correct the player character's behaviour while entering a teleporter, store a "jump" property for the player character. When player character is moved, check the "jump" property and jump before moving.
 package de.joekoperski.icemaze;
 
 import android.graphics.Point;
@@ -56,7 +57,6 @@ public class PlayerCharacter {
         previousPosition.x = position.x;
         previousPosition.y = position.y;
 
-        // TODO: 12.09.2018: Can this be done by getting the step from a table?
         switch (impulse) {
             case EAST:
                 if (position.x < bounds.right) {

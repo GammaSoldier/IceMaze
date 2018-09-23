@@ -67,13 +67,11 @@ public class GameView extends SurfaceView implements Callback {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-        // TODO Auto-generated method stub
     }// surfaceChanged
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // TODO Auto-generated method stub
         boolean retry = true;
 
         gfxLoopThread.setRunning(false);
@@ -100,11 +98,9 @@ public class GameView extends SurfaceView implements Callback {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void render(Activity activity, Map map, PlayerCharacter player, boolean fullRender) {
-        // TODO: 12.09.2018: this might be variable
         int width = getWidth();
         int height = getHeight();
 
-        // TODO: 12.09.2018: this shall be given be the level
         int tileWidth = width / map.getWidth();
         int tileHeight = height / map.getHeight();
 

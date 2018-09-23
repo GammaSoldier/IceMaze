@@ -1,9 +1,11 @@
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class EditorActivity extends Activity {
     private GameViewEditor theGridBitmap;
@@ -53,12 +59,33 @@ public class EditorActivity extends Activity {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+        Button buttonLoad = (Button) findViewById(R.id.buttonLoad);
+        buttonLoad.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                loadFile();
+            }// onClick
+        });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        Button buttonSave = (Button) findViewById(R.id.buttonSave);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saveFile();
+                Toast.makeText(EditorActivity.this, "Level saved", Toast.LENGTH_SHORT).show();
+            }// onClick
+        });
+
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonIce = (Button) findViewById(R.id.buttonIce);
         buttonIce.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 selectedTile = TileID.TILE_ICE;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonRock = (Button) findViewById(R.id.buttonRock);
@@ -68,6 +95,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonGrowRock = (Button) findViewById(R.id.buttonGrowRock);
         buttonGrowRock.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +103,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_GROW_ROCK;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonLock = (Button) findViewById(R.id.buttonLock);
@@ -84,6 +113,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonKey = (Button) findViewById(R.id.buttonKey);
         buttonKey.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +121,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_KEY;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonRedirNorth = (Button) findViewById(R.id.buttonRedirNorth);
@@ -100,6 +131,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonRedirSouth = (Button) findViewById(R.id.buttonRedirSouth);
         buttonRedirSouth.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +139,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_REDIRECT_SOUTH;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonRedirWest = (Button) findViewById(R.id.buttonRedirWest);
@@ -116,6 +149,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonRedirEast = (Button) findViewById(R.id.buttonRedirEast);
         buttonRedirEast.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +157,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_REDIRECT_EAST;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonTeleport = (Button) findViewById(R.id.buttonTeleport);
@@ -132,6 +167,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonTeleportTarget = (Button) findViewById(R.id.buttonTeleportTarget);
         buttonTeleportTarget.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +175,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_TELEPORT_TARGET;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonStickOnce = (Button) findViewById(R.id.buttonStickOnce);
@@ -148,6 +185,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonOnewayNorth = (Button) findViewById(R.id.buttonOnewayNorth);
         buttonOnewayNorth.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +193,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_ONEWAY_NORTH;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonOnewaySouth = (Button) findViewById(R.id.buttonOnewaySouth);
@@ -164,6 +203,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonOnewayEast = (Button) findViewById(R.id.buttonOnewayEast);
         buttonOnewayEast.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +211,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_ONEWAY_EAST;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonOnewayWest = (Button) findViewById(R.id.buttonOnewayWest);
@@ -180,6 +221,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonKill = (Button) findViewById(R.id.buttonKill);
         buttonKill.setOnClickListener(new View.OnClickListener() {
@@ -187,6 +229,7 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_KILL;
             }// onClick
         });
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonFinish = (Button) findViewById(R.id.buttonFinish);
@@ -196,6 +239,7 @@ public class EditorActivity extends Activity {
             }// onClick
         });
 
+
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonStart = (Button) findViewById(R.id.buttonStart);
         buttonStart.setOnClickListener(new View.OnClickListener() {
@@ -203,7 +247,6 @@ public class EditorActivity extends Activity {
                 selectedTile = TileID.TILE_START;
             }// onClick
         });
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -250,4 +293,49 @@ public class EditorActivity extends Activity {
         theGridBitmap.render(this, theMap, thePlayer, true);
 
     }
+
+    //**********************************************************************************************
+    // try to load file
+    public static final int FILE_SELECT_CODE =0;
+
+    public void loadFile() {
+        String type="*/*";
+
+        Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType(type);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(intent, "select file") ,FILE_SELECT_CODE );
+    }// loadFile
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FILE_SELECT_CODE  && resultCode == RESULT_OK && data != null) {
+            Uri uploadfileuri = data.getData();
+            File file = new File(uploadfileuri.getPath());
+        }// if
+    }// onActivityResult
+
+
+
+    //**********************************************************************************************
+    // try to save file
+
+    public void saveFile() {
+        String filename = "icemaze-";
+        String fileContents = "Hello world!";
+        FileOutputStream outputStream;
+
+        try {
+            outputStream = openFileOutput(filename, this.MODE_PRIVATE);
+            outputStream.write(fileContents.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }    }// loadFile
+
+
+
 }
