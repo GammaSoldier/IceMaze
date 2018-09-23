@@ -22,7 +22,9 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -325,8 +327,21 @@ public class EditorActivity extends Activity {
         if (requestCode == FILE_SELECT_CODE && resultCode == RESULT_OK && data != null) {
             Uri uploadfileuri = data.getData();
             File file = new File(uploadfileuri.getPath());
+//            file = new File(uploadfileuri.getRawPath());
             Toast.makeText(EditorActivity.this, "File load: " + file, Toast.LENGTH_LONG).show();
             // TODO: 23.09.2018: load file content and build level map
+            if (file != null) {
+                try {
+                    FileInputStream f = new FileInputStream(file);
+                    DataInputStream din = new DataInputStream(f);
+
+                    int i = din.readInt();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }// if
     }// onActivityResult
 
@@ -349,9 +364,14 @@ public class EditorActivity extends Activity {
             try {
                 FileOutputStream f = new FileOutputStream(file);
                 PrintWriter pw = new PrintWriter(f);
-                pw.println("Hi , How are you");
-                pw.println("Hello");
-                pw.flush();
+                pw.print(theMap.getWidth());
+                pw.print(theMap.getHeight());
+                for (int i = 0; i < theMap.getWidth(); i++) {
+                    for (int j = 0; j < theMap.getHeight(); j++) {
+                        pw.print(theMap.getSourceMap(i, j));
+                    }
+                }
+//                pw.flush();
                 pw.close();
                 f.close();
             }// try
