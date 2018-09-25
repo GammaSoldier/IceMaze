@@ -136,6 +136,13 @@
                 android:layout_height="30dp"
                 android:background="@drawable/tile_redirect_east" />
 
+            <Button
+                android:id="@+id/buttonStickOnce"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/tile_stick_once" />
+
+
         </TableRow>
 
         <TableRow
@@ -155,12 +162,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/tile_teleport_exit" />
-
-            <Button
-                android:id="@+id/buttonStickOnce"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/tile_stick_once" />
 
             <Button
                 android:id="@+id/buttonOnewayNorth"
@@ -191,6 +192,12 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:background="@drawable/tile_kill" />
+
+            <Button
+                android:id="@+id/buttonCrack"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/tile_crack" />
 
             <Button
                 android:id="@+id/buttonFinish"

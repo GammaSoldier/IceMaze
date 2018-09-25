@@ -62,6 +62,9 @@ public class TileFactory {
             case TileID.TILE_FINISH:
                 retVal = new TileFinish();
                 break;
+            case TileID.TILE_CRACK:
+                retVal = new TileCrack();
+                break;
             default:
                 retVal =  new TileIce();
 

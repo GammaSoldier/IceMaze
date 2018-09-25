@@ -273,6 +273,15 @@ public class EditorActivity extends Activity {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+        Button buttonCrack = findViewById(R.id.buttonCrack);
+        buttonCrack.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                selectedTile = TileID.TILE_CRACK;
+            }// onClick
+        });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonGenerate = findViewById(R.id.buttonGenerate);
         buttonGenerate.setOnClickListener(new View.OnClickListener() {

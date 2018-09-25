@@ -4,6 +4,7 @@
  * - add the ID of the tile in "TileID"
  * - implement the class for the tile here
  * - add the class to "TileFactory"
+ * - add a button to editor
  */
 
 
@@ -398,6 +399,23 @@ class TileKill implements ITile {
     @Override
     public Bitmap getBitmap(Activity activity) {
         return BitmapFactory.decodeResource(activity.getResources(), R.drawable.tile_kill);
+    }// getBitmap
+}
+
+
+/**
+ * ***********************************************************************************************
+ */
+class TileCrack implements ITile {
+    @Override
+    public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
+        map.setSourceMap(playerCharacter.getPosition().x, playerCharacter.getPosition().y, TileID.TILE_KILL);
+        return MoveResult.CONTINUE;
+    }// doAction
+
+    @Override
+    public Bitmap getBitmap(Activity activity) {
+        return BitmapFactory.decodeResource(activity.getResources(), R.drawable.tile_crack);
     }// getBitmap
 }
 
