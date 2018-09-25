@@ -33,6 +33,9 @@ public class EditorActivity extends Activity {
     public static final int REQUEST_WRITE_STORAGE = 112;
     public static final int FILE_SELECT_CODE = 123;
 
+    public static final int FILE_FORMAT_BINARY = 0;
+    public static final int FILE_FORMAT_TEXT = 1;
+
     private GameViewEditor theGridBitmap;
     private int selectedTile;
     private int width;
@@ -82,8 +85,18 @@ public class EditorActivity extends Activity {
         Button buttonSave = findViewById(R.id.buttonSave);
         buttonSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                saveFile();
+                saveFile(FILE_FORMAT_BINARY);
                 Toast.makeText(EditorActivity.this, "Level saved", Toast.LENGTH_SHORT).show();
+            }// onClick
+        });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+        Button buttonExport = findViewById(R.id.buttonExport);
+        buttonExport.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saveFile(FILE_FORMAT_TEXT);
+                Toast.makeText(EditorActivity.this, "Level exported", Toast.LENGTH_SHORT).show();
             }// onClick
         });
 
@@ -364,7 +377,7 @@ public class EditorActivity extends Activity {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void saveFile() {
+    public void saveFile(int format) {
         boolean hasPermission = (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasPermission) {
             ActivityCompat.requestPermissions(this,
@@ -382,29 +395,77 @@ public class EditorActivity extends Activity {
             SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
             String strDt = simpleDate.format(new Date());
 
-            File file = new File(dir, "icemaze" + strDt + ".bin");
-            Log.d("EditorActivity", "write file to: " + file);
-            try {
-                FileOutputStream f = new FileOutputStream(file);
-                DataOutputStream dout = new DataOutputStream(f);
+            if (format == FILE_FORMAT_BINARY) {
+                File file = new File(dir, "icemaze" + strDt + ".bin");
+                writeBinaryData(file);
+            }// if
+            else {
+                File file = new File(dir, "icemaze" + strDt + ".txt");
+                writeTextData(file);
 
-                dout.writeInt(theMap.getWidth());
-                dout.writeInt(theMap.getHeight());
+            }
 
-                for (int i = 0; i < theMap.getWidth(); i++) {
-                    for (int j = 0; j < theMap.getHeight(); j++) {
-                        dout.writeInt(theMap.getSourceMap(i, j));
-                    }// for j
-                }// for i
-
-                f.close();
-            }// try
-            // catch
-            catch (IOException e) {
-                e.printStackTrace();
-            }// catch
         }// else
     }// saveFile
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void writeBinaryData(File file) {
+        try {
+            FileOutputStream f = new FileOutputStream(file);
+            DataOutputStream dout = new DataOutputStream(f);
+
+            dout.writeInt(theMap.getWidth());
+            dout.writeInt(theMap.getHeight());
+
+            for (int i = 0; i < theMap.getWidth(); i++) {
+                for (int j = 0; j < theMap.getHeight(); j++) {
+                    dout.writeInt(theMap.getSourceMap(i, j));
+                }// for j
+            }// for i
+            f.close();
+
+        }// try
+        catch (IOException e) {
+            e.printStackTrace();
+        }// catch
+
+    }// writeBinaryData
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void writeTextData(File file) {
+        try {
+            FileOutputStream f = new FileOutputStream(file);
+            DataOutputStream dout = new DataOutputStream(f);
+
+            dout.writeBytes(String.valueOf(theMap.getWidth()));
+            dout.write(',');
+            dout.writeBytes(String.valueOf(theMap.getHeight()));
+            dout.write('\n');
+
+            for (int i = 0; i < theMap.getWidth(); i++) {
+                if (i > 0) {
+                    dout.write(',');
+                }// if
+                dout.writeBytes("{ ");
+                for (int j = 0; j < theMap.getHeight(); j++) {
+                    if (j > 0) {
+                        dout.write(',');
+                    }// if
+                    dout.writeBytes(String.valueOf(theMap.getSourceMap(i, j)));
+                }// for j
+                dout.writeBytes(" }");
+                dout.write('\n');
+
+            }// for i
+            f.close();
+        }// try
+        catch (IOException e) {
+            e.printStackTrace();
+        }// catch
+
+    }// writeTextData
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

@@ -232,13 +232,10 @@
                 android:id="@+id/buttonTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="#14cc00"
-                android:text="Test"
-                tools:layout_editor_absoluteX="160dp"
-                tools:layout_editor_absoluteY="455dp" />
+                android:text="Test" />
 
             <Button
                 android:id="@+id/buttonSave"
@@ -248,6 +245,16 @@
                 android:layout_marginRight="10dp"
                 android:background="#ff6264"
                 android:text="Save" />
+
+            <Button
+                android:id="@+id/buttonExport"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#ffa200"
+                android:text="Export" />
+
         </TableRow>
 
     </TableLayout>
