@@ -1,4 +1,3 @@
-// TODO: 15.09.2018: player is not displayed on teleport tile
 
 
 package de.joekoperski.icemaze;

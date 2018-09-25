@@ -1,4 +1,3 @@
-// TODO: 23.09.2018: To correct the player character's behaviour while entering a teleporter, store a "jump" property for the player character. When player character is moved, check the "jump" property and jump before moving.
 package de.joekoperski.icemaze;
 
 import android.graphics.Point;
@@ -8,6 +7,7 @@ public class PlayerCharacter {
     private Point position;
     private Point previousPosition;
     private Direction impulse;
+    private boolean jump;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public PlayerCharacter(Point position) {
@@ -19,6 +19,7 @@ public class PlayerCharacter {
         previousPosition.x = position.x;
         previousPosition.y = position.y;
         impulse = Direction.STILL;
+        jump = false;
     }// PlayerCharacter
 
 
@@ -32,6 +33,18 @@ public class PlayerCharacter {
     public void setImpulse(Direction impulse) {
         this.impulse = impulse;
     }// setImpulse
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public boolean isJump() {
+        return jump;
+    }// isJump
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setJump(boolean jump) {
+        this.jump = jump;
+    }// setJump
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -57,40 +70,42 @@ public class PlayerCharacter {
         previousPosition.x = position.x;
         previousPosition.y = position.y;
 
-        switch (impulse) {
-            case EAST:
-                if (position.x < bounds.right) {
-                    position.x += 1;
-                }//if
-                else {
-                    impulse = Direction.STILL;
-                }// else
-                break;
-            case WEST:
-                if (position.x > bounds.left) {
-                    position.x -= 1;
-                }//if
-                else {
-                    impulse = Direction.STILL;
-                }// else
-                break;
-            case NORTH:
-                if (position.y > bounds.top) {
-                    position.y -= 1;
-                }//if
-                else {
-                    impulse = Direction.STILL;
-                }// else
-                break;
-            case SOUTH:
-                if (position.y < bounds.bottom) {
-                    position.y += 1;
-                }//if
-                else {
-                    impulse = Direction.STILL;
-                }// else
-                break;
-            default:
-        }// switch
-    }
+        if (!jump) {
+            switch (impulse) {
+                case EAST:
+                    if (position.x < bounds.right) {
+                        position.x += 1;
+                    }//if
+                    else {
+                        impulse = Direction.STILL;
+                    }// else
+                    break;
+                case WEST:
+                    if (position.x > bounds.left) {
+                        position.x -= 1;
+                    }//if
+                    else {
+                        impulse = Direction.STILL;
+                    }// else
+                    break;
+                case NORTH:
+                    if (position.y > bounds.top) {
+                        position.y -= 1;
+                    }//if
+                    else {
+                        impulse = Direction.STILL;
+                    }// else
+                    break;
+                case SOUTH:
+                    if (position.y < bounds.bottom) {
+                        position.y += 1;
+                    }//if
+                    else {
+                        impulse = Direction.STILL;
+                    }// else
+                    break;
+                default:
+            }// switch
+        }// if
+    }// move
 }

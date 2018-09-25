@@ -125,7 +125,7 @@ class TileLock implements ITile {
 /**
  * ***********************************************************************************************
  */
-        class TileKey implements ITile {
+class TileKey implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         for (int i = 0; i < map.getWidth(); i++) {
@@ -149,7 +149,7 @@ class TileLock implements ITile {
 /**
  * ***********************************************************************************************
  */
- class TileRedirectNorth implements ITile {
+class TileRedirectNorth implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         playerCharacter.setImpulse(Direction.NORTH);
@@ -166,7 +166,7 @@ class TileLock implements ITile {
 /**
  * ***********************************************************************************************
  */
- class TileRedirectSouth implements ITile {
+class TileRedirectSouth implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         playerCharacter.setImpulse(Direction.SOUTH);
@@ -183,7 +183,7 @@ class TileLock implements ITile {
 /**
  * ***********************************************************************************************
  */
- class TileRedirectWest implements ITile {
+class TileRedirectWest implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         playerCharacter.setImpulse(Direction.WEST);
@@ -200,7 +200,7 @@ class TileLock implements ITile {
 /**
  * ***********************************************************************************************
  */
- class TileRedirectEast implements ITile {
+class TileRedirectEast implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         playerCharacter.setImpulse(Direction.EAST);
@@ -220,13 +220,20 @@ class TileLock implements ITile {
 class TileTeleport implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
-        for (int i = 0; i < map.getWidth(); i++) {
-            for (int j = 0; j < map.getHeight(); j++) {
-                if (map.getSourceMap(i, j) == TileID.TILE_TELEPORT_TARGET) {
-                    playerCharacter.setPosition(new Point(i,j));
-                }// if
-            }// for j
-        }// for i
+        if (!playerCharacter.isJump()) {
+            playerCharacter.setJump(true);
+        }// if
+        else {
+            for (int i = 0; i < map.getWidth(); i++) {
+                for (int j = 0; j < map.getHeight(); j++) {
+                    if (map.getSourceMap(i, j) == TileID.TILE_TELEPORT_TARGET) {
+                        playerCharacter.setPosition(new Point(i, j));
+                        playerCharacter.setJump(false);
+                    }// if
+                }// for j
+            }// for i
+        }// else
+
         return MoveResult.CONTINUE;
     }// doAction
 
@@ -277,15 +284,14 @@ class TileOnewayNorth implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         MoveResult retVal;
-        if(playerCharacter.getImpulse() != Direction.NORTH) {
+        if (playerCharacter.getImpulse() != Direction.NORTH) {
             playerCharacter.setImpulse(Direction.STILL);
             Point pt = new Point();
             pt.x = playerCharacter.getPreviousPosition().x;
             pt.y = playerCharacter.getPreviousPosition().y;
             playerCharacter.setPosition(pt);
             retVal = MoveResult.PLAYER_STOP;
-        }
-        else{
+        } else {
             retVal = MoveResult.CONTINUE;
         }
         return retVal;
@@ -305,15 +311,14 @@ class TileOnewaySouth implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         MoveResult retVal;
-        if(playerCharacter.getImpulse() != Direction.SOUTH) {
+        if (playerCharacter.getImpulse() != Direction.SOUTH) {
             playerCharacter.setImpulse(Direction.STILL);
             Point pt = new Point();
             pt.x = playerCharacter.getPreviousPosition().x;
             pt.y = playerCharacter.getPreviousPosition().y;
             playerCharacter.setPosition(pt);
             retVal = MoveResult.PLAYER_STOP;
-        }
-        else{
+        } else {
             retVal = MoveResult.CONTINUE;
         }
         return retVal;
@@ -333,15 +338,14 @@ class TileOnewayWest implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         MoveResult retVal;
-        if(playerCharacter.getImpulse() != Direction.WEST) {
+        if (playerCharacter.getImpulse() != Direction.WEST) {
             playerCharacter.setImpulse(Direction.STILL);
             Point pt = new Point();
             pt.x = playerCharacter.getPreviousPosition().x;
             pt.y = playerCharacter.getPreviousPosition().y;
             playerCharacter.setPosition(pt);
             retVal = MoveResult.PLAYER_STOP;
-        }
-        else{
+        } else {
             retVal = MoveResult.CONTINUE;
         }
         return retVal;
@@ -361,15 +365,14 @@ class TileOnewayEast implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
         MoveResult retVal;
-        if(playerCharacter.getImpulse() != Direction.EAST) {
+        if (playerCharacter.getImpulse() != Direction.EAST) {
             playerCharacter.setImpulse(Direction.STILL);
             Point pt = new Point();
             pt.x = playerCharacter.getPreviousPosition().x;
             pt.y = playerCharacter.getPreviousPosition().y;
             playerCharacter.setPosition(pt);
             retVal = MoveResult.PLAYER_STOP;
-        }
-        else{
+        } else {
             retVal = MoveResult.CONTINUE;
         }
         return retVal;
@@ -388,7 +391,7 @@ class TileOnewayEast implements ITile {
 class TileKill implements ITile {
     @Override
     public MoveResult doAction(Map map, PlayerCharacter playerCharacter) {
-        playerCharacter.setImpulse( Direction.STILL);
+        playerCharacter.setImpulse(Direction.STILL);
         return MoveResult.LEVEL_RESTART;
     }// doAction
 
