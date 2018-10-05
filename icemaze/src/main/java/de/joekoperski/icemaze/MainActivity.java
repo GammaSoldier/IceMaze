@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         Intent anIntent = getIntent();
         theLevel = (Level)anIntent.getSerializableExtra("Level");
 
-        Button button = (Button) findViewById(R.id.button);
+        Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
         });
 
 
-        Button buttonEditor = (Button) findViewById(R.id.buttonEditor);
+        Button buttonEditor = findViewById(R.id.buttonEditor);
         buttonEditor.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
@@ -55,26 +55,22 @@ public class MainActivity extends Activity {
 
 
 
-        View contentView = (View) findViewById(R.id.mainLayout);
+        View contentView = findViewById(R.id.mainLayout);
 
         contentView.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
-                long startTime = System.currentTimeMillis();
                 makeMove(Direction.NORTH);
             }
 
             public void onSwipeRight() {
-                long startTime = System.currentTimeMillis();
                 makeMove(Direction.EAST);
             }
 
             public void onSwipeLeft() {
-                long startTime = System.currentTimeMillis();
                 makeMove(Direction.WEST);
             }
 
             public void onSwipeBottom() {
-                long startTime = System.currentTimeMillis();
                 makeMove(Direction.SOUTH);
             }
 

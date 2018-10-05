@@ -10,7 +10,7 @@ public class PlayerCharacter {
     private boolean jump;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public PlayerCharacter(Point position) {
+    PlayerCharacter(Point position) {
         this.position = new Point();
         previousPosition = new Point();
 
@@ -24,25 +24,25 @@ public class PlayerCharacter {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Direction getImpulse() {
+    Direction getImpulse() {
         return impulse;
     }// getImpulse
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void setImpulse(Direction impulse) {
+    void setImpulse(Direction impulse) {
         this.impulse = impulse;
     }// setImpulse
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public boolean isJump() {
+    boolean isJump() {
         return jump;
     }// isJump
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void setJump(boolean jump) {
+    void setJump(boolean jump) {
         this.jump = jump;
     }// setJump
 
@@ -60,7 +60,7 @@ public class PlayerCharacter {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Point getPreviousPosition() {
+    Point getPreviousPosition() {
         return previousPosition;
     }// getPreviousPosition
 

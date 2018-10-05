@@ -1,7 +1,7 @@
 package de.joekoperski.icemaze;
 
-public class TileFactory {
-    public static ITile getTile(int id){
+class TileFactory {
+    static ITile getTile(int id){
         ITile retVal;
 
         switch (id) {

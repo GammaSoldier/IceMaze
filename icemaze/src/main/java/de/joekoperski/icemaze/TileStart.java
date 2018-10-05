@@ -1,10 +1,10 @@
-/***************************************************************************************************
- * To implement a new tile do the folowing steps:
- * - insert a new PNG for the tile in drawable folder
- * - add the ID of the tile in "TileID"
- * - implement the class for the tile here
- * - add the class to "TileFactory"
- * - add a button to editor
+/**************************************************************************************************
+ To implement a new tile do the folowing steps:
+ - insert a new PNG for the tile in drawable folder
+ - add the ID of the tile in "TileID"
+ - implement the class for the tile here
+ - add the class to "TileFactory"
+ - add a button to editor
  */
 
 

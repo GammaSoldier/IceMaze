@@ -1,6 +1,5 @@
 package de.joekoperski.icemaze;
 
-import android.graphics.Point;
 import android.graphics.Rect;
 
 public class Rules {
@@ -24,24 +23,24 @@ public class Rules {
     };
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Rules() {
+    Rules() {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Map getTheMap() {
+    Map getTheMap() {
         return theMap;
     }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public PlayerCharacter getThePlayer() {
+    PlayerCharacter getThePlayer() {
         return thePlayer;
     }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     // TODO pass a level to this method.
-    public void initLevel(Level level) {
+    void initLevel(Level level) {
         theMap = level.getMap();
         levelWidth = theMap.getWidth();
         levelHeight = theMap.getHeight();
@@ -62,7 +61,6 @@ public class Rules {
 
         if (thePlayer.getImpulse() != Direction.STILL) {
             ITile Tile;
-            MoveResult moveResult;
             Tile = TileFactory.getTile(theMap.getSourceMap(thePlayer.getPosition().x, thePlayer.getPosition().y));
             retVal = Tile.doAction(theMap, thePlayer);
         }// if

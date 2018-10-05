@@ -31,7 +31,7 @@ public class Level implements Serializable {
         this.height = height;
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Level(Map map) {
+    Level(Map map) {
         width = map.getWidth();
         height = map.getHeight();
         mMap = new int[width][height];
@@ -45,7 +45,7 @@ public class Level implements Serializable {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Map getMap() {
+    Map getMap() {
         Map map = new Map(width, height);
 
         for (int i = 0; i < width; i++) {
