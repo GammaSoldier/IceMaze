@@ -315,12 +315,19 @@ public class EditorActivity extends Activity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void TileTouched(int x, int y) {
+        if (selectedTile == TileID.TILE_START) {
+            thePlayer.setPosition(new Point(x, y));
+            for (int i = 0; i < width; i++) {
+                for (int j = 0; j < height; j++) {
+                    if(theMap.getSourceMap(i,j) == TileID.TILE_START)
+                        theMap.setSourceMap(i, j, TileID.TILE_ICE);
+                    theMap.setResultMap(i, j, TileID.TILE_ICE);
+                }// for j
+            }// for i
+        }// if
         theMap.setSourceMap(x, y, selectedTile);
         theMap.setResultMap(x, y, selectedTile);
 
-        if (selectedTile == TileID.TILE_START) {
-            thePlayer.setPosition(new Point(x, y));
-        }// if
         Log.d("Editor", "TileTouched: x = " + x + ", y = " + y);
         theGridBitmap.render(this, theMap, thePlayer, true);
 

@@ -1,4 +1,5 @@
-
+// TODO: 05.10.2018: Smooth animation 
+// TODO: 05.10.2018: different screens
 
 package de.joekoperski.icemaze;
 
