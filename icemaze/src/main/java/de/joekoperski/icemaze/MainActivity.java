@@ -29,7 +29,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         theGridBitmap = new GameView(this);
 
-        surface = (RelativeLayout)findViewById(R.id.imageView);
+        surface = findViewById(R.id.imageView);
         surface.addView(theGridBitmap);
 
         Intent anIntent = getIntent();
