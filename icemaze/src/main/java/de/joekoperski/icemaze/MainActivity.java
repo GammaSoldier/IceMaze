@@ -1,6 +1,6 @@
 // TODO: 05.10.2018: Smooth animation 
 // TODO: 05.10.2018: different screens
-
+// TODO: 05.10.2018: make editor only available in debug version
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
