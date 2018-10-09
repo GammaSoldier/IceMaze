@@ -67,5 +67,7 @@ public class LevelSelectorActivity extends Activity {
                 int height = scrollView.getHeight();
                 scrollView.smoothScrollTo(0, height / 2);
             }
-        });    }
+        });
+
+    }
 }
