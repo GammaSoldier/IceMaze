@@ -13,6 +13,16 @@ import android.widget.Button;
 public class TitleScreenActivity extends Activity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
+    private final View.OnClickListener mButtonPlayClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent myIntent = new Intent(getBaseContext(), LevelSelectorActivity.class);
+            startActivity(myIntent);
+        }// onClick
+    };
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     private final View.OnClickListener mButtonEditClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -43,6 +53,7 @@ public class TitleScreenActivity extends Activity {
         setContentView(R.layout.activity_title_screen);
 
         // init buttons
+        findViewById(R.id.button_play).setOnClickListener(mButtonPlayClickListener);
         findViewById(R.id.button_editor).setOnClickListener(mButtonEditClickListener);
         findViewById(R.id.button_exit).setOnClickListener(mButtonExitClickListener);
 
