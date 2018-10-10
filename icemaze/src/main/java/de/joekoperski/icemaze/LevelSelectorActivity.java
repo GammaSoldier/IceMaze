@@ -2,12 +2,17 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -33,6 +38,15 @@ public class LevelSelectorActivity extends Activity {
         Button button;
         LinearLayout layoutButtonLine;
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize( size);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.weight = 1;
+        lp.setMargins(size.x/25, size.y/40, size.x/25, size.y/40);
+
+
         layoutButtonLine = new LinearLayout(this);
         layoutButtonLine.setOrientation(LinearLayout.HORIZONTAL);
         layoutButtonLine.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_GRAVITY);
@@ -42,6 +56,11 @@ public class LevelSelectorActivity extends Activity {
             // TODO: 10.10.2018: differentiate between locked and unlocked level selection button
             // TODO: 10.10.2018: calculate button sizes and margins
             button.setText(String.valueOf(i));
+            button.setBackground(getResources().getDrawable(R.drawable.button_level_selector));
+//            button.setPadding(0,0,0,0);
+            button.setLayoutParams(lp);
+
+
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Perform action on click
@@ -70,19 +89,21 @@ public class LevelSelectorActivity extends Activity {
     protected void onResume() {
         super.onResume();
         // TODO: 09.10.2018: read the actual level from saved data
-        int level = 39;
-        double scrollPosition = ((Math.ceil( (double)level / BUTTONS_PER_LINE) -1)/ (MAX_LEVELS/BUTTONS_PER_LINE));
+        int level = 3;
+        double scrollPosition = ((Math.ceil((double) level / BUTTONS_PER_LINE) - 1) / (MAX_LEVELS / BUTTONS_PER_LINE));
         scrollView.post(new Runnable() {
             double yPosition;
+
             public void run() {
 
                 int height = layout.getHeight();
-                int pos = (int)(height * yPosition);
+                int pos = (int) (height * yPosition);
                 scrollView.scrollTo(0, pos);
 
-                Log.d("LevelSelectorActivity", "height: " + height + " scroll position: " + pos );
+                Log.d("LevelSelectorActivity", "height: " + height + " scroll position: " + pos);
             }// run
-            Runnable init( double yPos ) {
+
+            Runnable init(double yPos) {
                 yPosition = yPos;
                 return (this);
             }// init
