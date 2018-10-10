@@ -64,7 +64,7 @@ public class EditorActivity extends Activity {
         Button buttonTest = findViewById(R.id.buttonTest);
         buttonTest.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), MainActivity.class);
+                Intent myIntent = new Intent(getBaseContext(), PlayActivity.class);
                 theLevel = new Level(theMap);
                 myIntent.putExtra("Level", theLevel);
                 startActivity(myIntent);

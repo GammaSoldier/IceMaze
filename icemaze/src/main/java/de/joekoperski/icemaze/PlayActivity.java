@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends Activity {
+public class PlayActivity extends Activity {
 
     Rules theRules;
     GameView theGridBitmap;
@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_play);
         theGridBitmap = new GameView(this);
 
         surface = findViewById(R.id.imageView);

@@ -40,13 +40,14 @@ public class LevelSelectorActivity extends Activity {
         for (int i = 1; i <= MAX_LEVELS; i++) {
             button = new Button(this);
             // TODO: 10.10.2018: differentiate between locked and unlocked level selection button
+            // TODO: 10.10.2018: calculate button sizes and margins
             button.setText(String.valueOf(i));
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Perform action on click
                     Button b = (Button) v;
                     int num = Integer.parseInt(b.getText().toString());
-                    // TODO: 09.10.2018: Start MainActivity with level number
+                    // TODO: 09.10.2018: Start PlayActivity with level number
                 }// onClick
             });
             layoutButtonLine.addView(button);
