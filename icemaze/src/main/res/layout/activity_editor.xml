@@ -15,7 +15,6 @@
         android:id="@+id/gridView"
         android:layout_width="351dp"
         android:layout_height="347dp"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         tools:layout_editor_absoluteX="17dp"
@@ -41,7 +40,6 @@
                 android:layout_marginRight="5dp"
                 android:background="@android:color/white"
                 android:ems="5"
-                android:hint="width"
                 android:inputType="numberDecimal"
                 android:text="" />
 
@@ -53,7 +51,6 @@
                 android:layout_marginRight="5dp"
                 android:background="@android:color/white"
                 android:ems="5"
-                android:hint="height"
                 android:inputType="numberDecimal"
                 android:text="" />
 

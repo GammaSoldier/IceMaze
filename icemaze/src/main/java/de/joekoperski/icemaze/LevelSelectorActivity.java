@@ -2,10 +2,12 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,6 +21,9 @@ public class LevelSelectorActivity extends Activity {
     LinearLayout layout;
     static final int MAX_LEVELS = 100;
     static final int BUTTONS_PER_LINE = 4;
+    static final int LEVEL_SELECTOR_BUTTON_HEIGHT_DIVIDER = 6;
+    static final int LEVEL_SELECTOR_HORIZONTAL_MARGIN_DIVIDER = 25;
+    static final int LEVEL_SELECTOR_VERTICAL_MARGIN_DIVIDER = 40;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -41,8 +46,12 @@ public class LevelSelectorActivity extends Activity {
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.weight = 1;
-        lp.setMargins(size.x / 25, size.y / 40, size.x / 25, size.y / 40);
+        lp.gravity = Gravity.CENTER;
+        lp.height = size.x / LEVEL_SELECTOR_BUTTON_HEIGHT_DIVIDER;
 
+        int horizontal = size.x / LEVEL_SELECTOR_HORIZONTAL_MARGIN_DIVIDER;
+        int vertical = size.x / LEVEL_SELECTOR_VERTICAL_MARGIN_DIVIDER;
+        lp.setMargins(horizontal, vertical, horizontal, vertical);
 
         layoutButtonLine = new LinearLayout(this);
         layoutButtonLine.setOrientation(LinearLayout.HORIZONTAL);
@@ -51,7 +60,6 @@ public class LevelSelectorActivity extends Activity {
         for (int i = 1; i <= MAX_LEVELS; i++) {
             button = new Button(this);
             // TODO: 10.10.2018: differentiate between locked and unlocked level selection button
-            // TODO: 10.10.2018: calculate button sizes and margins
             button.setText(String.valueOf(i));
             button.setBackground(getResources().getDrawable(R.drawable.button_level_selector));
             button.setLayoutParams(lp);
