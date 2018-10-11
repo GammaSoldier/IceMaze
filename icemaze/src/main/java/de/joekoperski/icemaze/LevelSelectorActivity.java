@@ -2,17 +2,14 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -40,11 +37,11 @@ public class LevelSelectorActivity extends Activity {
 
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
-        display.getSize( size);
+        display.getSize(size);
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.weight = 1;
-        lp.setMargins(size.x/25, size.y/40, size.x/25, size.y/40);
+        lp.setMargins(size.x / 25, size.y / 40, size.x / 25, size.y / 40);
 
 
         layoutButtonLine = new LinearLayout(this);
@@ -57,20 +54,22 @@ public class LevelSelectorActivity extends Activity {
             // TODO: 10.10.2018: calculate button sizes and margins
             button.setText(String.valueOf(i));
             button.setBackground(getResources().getDrawable(R.drawable.button_level_selector));
-//            button.setPadding(0,0,0,0);
             button.setLayoutParams(lp);
-
 
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Perform action on click
                     Button b = (Button) v;
-                    int num = Integer.parseInt(b.getText().toString());
+                    try {
+                        int num = Integer.parseInt(b.getText().toString());
+                    }//try
+                    catch (NumberFormatException e) {
+                        // button text does not contain a number. This might be the case for locked buttons
+                    }// catch
                     // TODO: 09.10.2018: Start PlayActivity with level number
                 }// onClick
             });
             layoutButtonLine.addView(button);
-
 
             if (i % BUTTONS_PER_LINE == 0) {
                 layout.addView(layoutButtonLine);
@@ -80,7 +79,6 @@ public class LevelSelectorActivity extends Activity {
             }// if
         }// for i
 
-
     }// onCreate
 
 
@@ -89,7 +87,7 @@ public class LevelSelectorActivity extends Activity {
     protected void onResume() {
         super.onResume();
         // TODO: 09.10.2018: read the actual level from saved data
-        int level = 3;
+        int level = 23;
         double scrollPosition = ((Math.ceil((double) level / BUTTONS_PER_LINE) - 1) / (MAX_LEVELS / BUTTONS_PER_LINE));
         scrollView.post(new Runnable() {
             double yPosition;
