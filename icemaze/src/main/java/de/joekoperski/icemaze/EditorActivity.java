@@ -319,7 +319,7 @@ public class EditorActivity extends Activity {
             thePlayer.setPosition(new Point(x, y));
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
-                    if(theMap.getSourceMap(i,j) == TileID.TILE_START)
+                    if (theMap.getSourceMap(i, j) == TileID.TILE_START)
                         theMap.setSourceMap(i, j, TileID.TILE_ICE);
                     theMap.setResultMap(i, j, TileID.TILE_ICE);
                 }// for j
@@ -401,12 +401,12 @@ public class EditorActivity extends Activity {
                     REQUEST_WRITE_STORAGE);
         }// if
         else {
-            // You are allowed to write external storage:
+            // write to external storage:
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File(root.getAbsolutePath() + "/IceMaze");
             if (!dir.mkdirs()) {
                 Log.d("EditorActivity", "could not create directory: " + dir);
-            }
+            }// if
 
             SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
             String strDt = simpleDate.format(new Date());
@@ -418,9 +418,7 @@ public class EditorActivity extends Activity {
             else {
                 File file = new File(dir, "icemaze" + strDt + ".txt");
                 writeTextData(file);
-
-            }
-
+            }// else
         }// else
     }// saveFile
 
