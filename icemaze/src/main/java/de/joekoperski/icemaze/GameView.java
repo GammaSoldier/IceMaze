@@ -38,6 +38,7 @@ public class GameView extends SurfaceView implements Callback {
         super(context);
 
         mContext = (Activity) context;
+
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
 
@@ -55,6 +56,13 @@ public class GameView extends SurfaceView implements Callback {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
+        Point size = new Point();
+        mContext.getWindowManager().getDefaultDisplay().getSize(size);
+        android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
+
+        lp.width = (size.x); // TODO: 12.10.2018: / tilewidth * tilewidth
+        lp.height = lp.width; // required height
+        this.setLayoutParams(lp);
 
         gfxLoopThread = new GfxLoopThread(this);
         gfxLoopThread.setRunning(true);
@@ -115,7 +123,7 @@ public class GameView extends SurfaceView implements Callback {
             for (int i = 0; i < map.getWidth(); i++) {
                 for (int j = 0; j < map.getHeight(); j++) {
                     canvas.drawBitmap(bmpTile.get(map.getSourceMap(i, j)), null, new Rect(i * tileWidth, j * tileHeight, (i + 1) * tileWidth, (j + 1) * tileHeight), null);
-                    if( player != null ) {
+                    if (player != null) {
                         canvas.drawBitmap(bmpPlayer, null, new Rect(player.getPosition().x * tileWidth, player.getPosition().y * tileHeight, (player.getPosition().x + 1) * tileWidth, (player.getPosition().y + 1) * tileHeight), null);
                     }// if
                 }// for j
@@ -127,7 +135,7 @@ public class GameView extends SurfaceView implements Callback {
                     if (map.getSourceMap(i, j) != map.getResultMap(i, j)) {
                         canvas.drawBitmap(bmpTile.get(map.getSourceMap(i, j)), null, new Rect(i * tileWidth, j * tileHeight, (i + 1) * tileWidth, (j + 1) * tileHeight), null);
                     }// if
-                    if( player != null ) {
+                    if (player != null) {
                         Point pt = player.getPosition();
                         if (pt.x == i && pt.y == j) {
                             Point prev = player.getPreviousPosition();
@@ -150,5 +158,16 @@ public class GameView extends SurfaceView implements Callback {
         }// catch
 
     }// render
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    void setViewSize(int x, int y) {
+        android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
+
+        lp.width = x;
+        lp.height = y;
+        this.setLayoutParams(lp);
+        invalidate();
+    }// setViewSize
 
 }// GameView

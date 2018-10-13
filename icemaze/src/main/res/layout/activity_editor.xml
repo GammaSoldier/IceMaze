@@ -13,8 +13,8 @@
 
     <RelativeLayout
         android:id="@+id/gridView"
-        android:layout_width="351dp"
-        android:layout_height="347dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         tools:layout_editor_absoluteX="17dp"

@@ -6,12 +6,15 @@ package de.joekoperski.icemaze;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+
+import java.util.function.ToDoubleBiFunction;
 
 public class PlayActivity extends Activity {
 
@@ -34,11 +37,10 @@ public class PlayActivity extends Activity {
         surface.addView(theGridBitmap);
 
         Intent anIntent = getIntent();
-        theLevel = (Level)anIntent.getSerializableExtra("Level");
+        theLevel = (Level) anIntent.getSerializableExtra("Level");
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 startGame();
             }// onClick
@@ -47,13 +49,11 @@ public class PlayActivity extends Activity {
 
         Button buttonEditor = findViewById(R.id.buttonEditor);
         buttonEditor.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 Intent myIntent = new Intent(getBaseContext(), EditorActivity.class);
                 startActivity(myIntent);
             }// onClick
         });
-
 
 
         View contentView = findViewById(R.id.mainLayout);
@@ -85,6 +85,13 @@ public class PlayActivity extends Activity {
     private void startGame() {
         theRules = new Rules();
         theRules.initLevel(theLevel);
+        // TODO: 12.10.2018: set size of gameview
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        size.x = ((size.x * 9 / 10) / theRules.getTheMap().getWidth()) * theRules.getTheMap().getWidth();
+        size.y = size.x;
+        theGridBitmap.setViewSize(size.x, size.y);
+
         render(true);
     }// startGame
 
@@ -96,12 +103,12 @@ public class PlayActivity extends Activity {
         moveResult = theRules.move(direction, true);
         render(false);
 
-        while(moveResult == MoveResult.CONTINUE ) {
+        while (moveResult == MoveResult.CONTINUE) {
             moveResult = theRules.move(direction, false);
             render(false);
         }
 
-        switch( moveResult) {
+        switch (moveResult) {
             case PLAYER_STOP:
                 break;
             case LEVEL_COMPLETE:
