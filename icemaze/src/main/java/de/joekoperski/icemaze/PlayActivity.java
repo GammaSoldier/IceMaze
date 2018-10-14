@@ -9,9 +9,12 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.function.ToDoubleBiFunction;
@@ -81,17 +84,46 @@ public class PlayActivity extends Activity {
     }// onCreate
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startGame();
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void startGame() {
         theRules = new Rules();
         theRules.initLevel(theLevel);
         // TODO: 12.10.2018: set size of gameview
-        Point size = new Point();
+        final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         size.x = ((size.x * 9 / 10) / theRules.getTheMap().getWidth()) * theRules.getTheMap().getWidth();
         size.y = size.x;
         theGridBitmap.setViewSize(size.x, size.y);
 
+
+//        ViewTreeObserver vto = theGridBitmap.getViewTreeObserver();
+//        vto.addOnPreDrawListener (new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean  onPreDraw() {
+//                if(theGridBitmap.getMeasuredWidth() != size.x) {return(false);}
+//                theGridBitmap.getViewTreeObserver().removeOnPreDrawListener(this);
+//
+//                render(true);
+//                return true;
+//            }
+//        });
+
+
+//        theGridBitmap.post( new Runnable() {
+//            @Override
+//            public void run() {
+//                render(true);
+//            }
+//        });
+
+        ViewGroup vg = findViewById (R.id.mainLayout);
+        vg.invalidate();
         render(true);
     }// startGame
 

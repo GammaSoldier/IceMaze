@@ -1,3 +1,4 @@
+// TODO: 14.10.2018: Resize editor gameview
 package de.joekoperski.icemaze;
 
 import android.Manifest;
