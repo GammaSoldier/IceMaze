@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -29,8 +30,8 @@ public class GameView extends SurfaceView implements Callback {
     private int activeContent;
 
     // TODO: 12.09.2018: this might be variable
-    private int width = 1000;
-    private int height = 1000;
+    private int width = 500;
+    private int height = 500;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,8 +61,10 @@ public class GameView extends SurfaceView implements Callback {
         mContext.getWindowManager().getDefaultDisplay().getSize(size);
         android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
 
-        lp.width = (size.x); // TODO: 12.10.2018: / tilewidth * tilewidth
-        lp.height = lp.width; // required height
+//        lp.width = (size.x); // TODO: 12.10.2018: / tilewidth * tilewidth
+//        lp.height = lp.width; // required height
+        lp.width = width; // TODO: 12.10.2018: / tilewidth * tilewidth
+        lp.height = height; // required height
         this.setLayoutParams(lp);
 
         gfxLoopThread = new GfxLoopThread(this);
@@ -170,7 +173,10 @@ public class GameView extends SurfaceView implements Callback {
         lp.width = x;
         lp.height = y;
         this.setLayoutParams(lp);
+
 //        invalidate();
     }// setViewSize
+
+
 
 }// GameView

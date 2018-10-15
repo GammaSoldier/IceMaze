@@ -10,14 +10,10 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import java.util.function.ToDoubleBiFunction;
 
 public class PlayActivity extends Activity {
 
@@ -34,13 +30,14 @@ public class PlayActivity extends Activity {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_play);
-        theGridBitmap = new GameView(this);
 
-        surface = findViewById(R.id.imageView);
-        surface.addView(theGridBitmap);
+        theGridBitmap = new GameView(this);
 
         Intent anIntent = getIntent();
         theLevel = (Level) anIntent.getSerializableExtra("Level");
+
+        surface = findViewById(R.id.imageView);
+        surface.addView(theGridBitmap);
 
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +46,6 @@ public class PlayActivity extends Activity {
             }// onClick
         });
 
-
         Button buttonEditor = findViewById(R.id.buttonEditor);
         buttonEditor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -57,7 +53,6 @@ public class PlayActivity extends Activity {
                 startActivity(myIntent);
             }// onClick
         });
-
 
         View contentView = findViewById(R.id.mainLayout);
 
@@ -90,6 +85,7 @@ public class PlayActivity extends Activity {
         startGame();
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void startGame() {
         theRules = new Rules();
@@ -100,7 +96,6 @@ public class PlayActivity extends Activity {
         size.x = ((size.x * 9 / 10) / theRules.getTheMap().getWidth()) * theRules.getTheMap().getWidth();
         size.y = size.x;
         theGridBitmap.setViewSize(size.x, size.y);
-
 
 //        ViewTreeObserver vto = theGridBitmap.getViewTreeObserver();
 //        vto.addOnPreDrawListener (new ViewTreeObserver.OnPreDrawListener() {

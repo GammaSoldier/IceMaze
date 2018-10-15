@@ -54,6 +54,7 @@ public class EditorActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_editor);
 
+        theMap = null;
         theGridBitmap = new GameViewEditor(this);
 
         RelativeLayout surface = findViewById(R.id.gridView);
@@ -293,10 +294,23 @@ public class EditorActivity extends Activity {
                 edit = findViewById(R.id.editTextHeight);
                 height = Integer.parseInt(edit.getText().toString());
                 generateMap(width, height);
+
             }// onClick
         });
 
     }// onCreate
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if( theMap != null ) {
+            // TODO: 15.10.2018:
+            resizeGameView();
+        }// if
+    }// onResume
+
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void generateMap(int width, int height) {
@@ -310,6 +324,10 @@ public class EditorActivity extends Activity {
         }// for i
 
         theGridBitmap.setDimensions(width, height);
+
+        // TODO: 15.10.2018:
+        resizeGameView();
+
         theGridBitmap.render(this, theMap, null, true);
     }// generateMap
 
@@ -378,6 +396,10 @@ public class EditorActivity extends Activity {
                         }// for j
                     }// for i
                     theGridBitmap.setDimensions(width, height);
+
+                    // TODO: 15.10.2018:
+                    resizeGameView();
+
                     theGridBitmap.render(this, theMap, thePlayer, true);
                     f.close();
                     Toast.makeText(this, "File loaded", Toast.LENGTH_SHORT).show();
@@ -502,4 +524,13 @@ public class EditorActivity extends Activity {
     }// onRequestPermissionsResult
 
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    private void resizeGameView() {
+        final Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        size.x = ((size.x * 9 / 10) / theMap.getWidth()) * theMap.getWidth();
+        size.y = size.x;
+        theGridBitmap.setViewSize(size.x, size.y);
+
+    }
 }
