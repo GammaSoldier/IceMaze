@@ -1,6 +1,5 @@
 package de.joekoperski.icemaze;
 
-import android.app.Activity;
 import android.view.MotionEvent;
 
 
@@ -15,14 +14,14 @@ public class GameViewEditor extends GameView {
     public GameViewEditor(EditorActivity context) {
         super(context);
         parentActivity = context;
-    }
+    }// GameViewEditor
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void setDimensions( int x, int y ) {
         numTilesX = x;
         numTilesY = y;
-    }
+    }// setDimensions
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -40,5 +39,6 @@ public class GameViewEditor extends GameView {
             parentActivity.TileTouched(x, y);
         }// if
         return true;
-    }
-}
+    }// onTouchEvent
+
+}// GameViewEditor

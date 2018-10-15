@@ -1,7 +1,6 @@
 package de.joekoperski.icemaze;
 
 import android.graphics.Point;
-
 import java.io.Serializable;
 
 public class Map implements Serializable {
@@ -13,7 +12,7 @@ public class Map implements Serializable {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public Map(int width, int height) {
+    Map(int width, int height) {
         sourceMap = new int[width][height];
         resultMap = new int[width][height];
         this.width = width;
@@ -34,7 +33,7 @@ public class Map implements Serializable {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void setSourceMap(int x, int y, int value) {
+    void setSourceMap(int x, int y, int value) {
         if (x <= width && x >= 0 && y <= height && y >= 0) {
             sourceMap[x][y] = value;
         }// if
@@ -42,7 +41,7 @@ public class Map implements Serializable {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void setResultMap(int x, int y, int value) {
+    void setResultMap(int x, int y, int value) {
         if (x <= width && x >= 0 && y <= height && y >= 0) {
             resultMap[x][y] = value;
         }// if
@@ -50,7 +49,7 @@ public class Map implements Serializable {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public int getSourceMap(int x, int y) {
+    int getSourceMap(int x, int y) {
         if (x <= width && x >= 0 && y <= height && y >= 0) {
             return sourceMap[x][y];
         }// if
@@ -61,7 +60,7 @@ public class Map implements Serializable {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public int getResultMap(int x, int y) {
+    int getResultMap(int x, int y) {
         if (x <= width && x >= 0 && y <= height && y >= 0) {
             return resultMap[x][y];
         }// if
@@ -89,7 +88,7 @@ public class Map implements Serializable {
                 if( sourceMap[i][j] == id) {
                     retVal = new Point(i,j);
                     return retVal;
-                }
+                }// if
             }// for j
         }// for i
         return retVal;

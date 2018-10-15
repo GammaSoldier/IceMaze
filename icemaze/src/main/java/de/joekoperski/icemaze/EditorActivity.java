@@ -1,4 +1,4 @@
-// TODO: 14.10.2018: Resize editor gameview
+
 package de.joekoperski.icemaze;
 
 import android.Manifest;
@@ -308,7 +308,6 @@ public class EditorActivity extends Activity {
     protected void onResume() {
         super.onResume();
         if( theMap != null ) {
-            // TODO: 15.10.2018:
             resizeGameView();
         }// if
     }// onResume
@@ -326,10 +325,7 @@ public class EditorActivity extends Activity {
         }// for i
 
         theGridBitmap.setDimensions(width, height);
-
-        // TODO: 15.10.2018:
         resizeGameView();
-
         theGridBitmap.render(this, theMap, null, true);
     }// generateMap
 
@@ -403,11 +399,9 @@ public class EditorActivity extends Activity {
                     }// for i
 
                     theGridBitmap.setDimensions(width, height);
-
-                    // TODO: 15.10.2018:
                     resizeGameView();
-
                     theGridBitmap.render(this, theMap, thePlayer, true);
+
                     f.close();
                     Toast.makeText(this, "File loaded", Toast.LENGTH_SHORT).show();
 

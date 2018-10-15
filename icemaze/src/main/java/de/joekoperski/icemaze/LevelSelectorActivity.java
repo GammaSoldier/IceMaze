@@ -2,7 +2,6 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;

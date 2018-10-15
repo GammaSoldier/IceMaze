@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +37,7 @@ public class GameView extends SurfaceView implements Callback {
     public GameView(Activity context) {
         super(context);
 
-        mContext = (Activity) context;
+        mContext = context;
 
         surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
