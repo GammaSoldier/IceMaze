@@ -10,13 +10,13 @@ import android.view.Window;
 import android.view.WindowManager;
 
 
-public class TitleActivity extends Activity {
+public class ActivityTitle extends Activity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private final View.OnClickListener mButtonPlayClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent myIntent = new Intent(getBaseContext(), LevelSelectorActivity.class);
+            Intent myIntent = new Intent(getBaseContext(), ActivityLevelSelector.class);
             startActivity(myIntent);
         }// onClick
     };
@@ -26,7 +26,7 @@ public class TitleActivity extends Activity {
     private final View.OnClickListener mButtonEditClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent myIntent = new Intent(getBaseContext(), EditorActivity.class);
+            Intent myIntent = new Intent(getBaseContext(), ActivityEditor.class);
             startActivity(myIntent);
         }// onClick
     };

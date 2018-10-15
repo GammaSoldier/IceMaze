@@ -5,13 +5,13 @@ import android.view.MotionEvent;
 
 public class GameViewEditor extends GameView {
 
-    private EditorActivity parentActivity;
+    private ActivityEditor parentActivity;
     private int numTilesX;
     private int numTilesY;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public GameViewEditor(EditorActivity context) {
+    public GameViewEditor(ActivityEditor context) {
         super(context);
         parentActivity = context;
     }// GameViewEditor

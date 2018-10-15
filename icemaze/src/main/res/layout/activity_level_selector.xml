@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/title_screen"
     android:orientation="vertical"
-    tools:context=".LevelSelectorActivity">
+    tools:context=".ActivityLevelSelector">
 
     <TextView
         android:id="@+id/textView2"

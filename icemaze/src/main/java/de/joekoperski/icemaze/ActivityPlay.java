@@ -15,7 +15,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-public class PlayActivity extends Activity {
+public class ActivityPlay extends Activity {
 
     Rules theRules;
     GameView theGridBitmap;
@@ -49,7 +49,7 @@ public class PlayActivity extends Activity {
         Button buttonEditor = findViewById(R.id.buttonEditor);
         buttonEditor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), EditorActivity.class);
+                Intent myIntent = new Intent(getBaseContext(), ActivityEditor.class);
                 startActivity(myIntent);
             }// onClick
         });

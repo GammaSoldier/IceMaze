@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class EditorActivity extends Activity {
+public class ActivityEditor extends Activity {
     public static final int REQUEST_WRITE_STORAGE = 112;
     public static final int FILE_SELECT_CODE = 123;
 
@@ -68,7 +68,7 @@ public class EditorActivity extends Activity {
         Button buttonTest = findViewById(R.id.buttonTest);
         buttonTest.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), PlayActivity.class);
+                Intent myIntent = new Intent(getBaseContext(), ActivityPlay.class);
                 theLevel = new Level(theMap);
                 myIntent.putExtra("Level", theLevel);
                 startActivity(myIntent);
@@ -90,7 +90,7 @@ public class EditorActivity extends Activity {
         buttonSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 saveFile(FILE_FORMAT_BINARY);
-                Toast.makeText(EditorActivity.this, "Level saved", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityEditor.this, "Level saved", Toast.LENGTH_SHORT).show();
             }// onClick
         });
 
@@ -100,7 +100,7 @@ public class EditorActivity extends Activity {
         buttonExport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 saveFile(FILE_FORMAT_TEXT);
-                Toast.makeText(EditorActivity.this, "Level exported", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityEditor.this, "Level exported", Toast.LENGTH_SHORT).show();
             }// onClick
         });
 
@@ -429,7 +429,7 @@ public class EditorActivity extends Activity {
             File root = android.os.Environment.getExternalStorageDirectory();
             File dir = new File(root.getAbsolutePath() + "/IceMaze");
             if (!dir.mkdirs()) {
-                Log.d("EditorActivity", "could not create directory: " + dir);
+                Log.d("ActivityEditor", "could not create directory: " + dir);
             }// if
 
             SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");

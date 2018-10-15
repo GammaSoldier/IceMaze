@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-public class LevelSelectorActivity extends Activity {
+public class ActivityLevelSelector extends Activity {
 
     ScrollView scrollView;
     LinearLayout layout;
@@ -73,7 +73,7 @@ public class LevelSelectorActivity extends Activity {
                     catch (NumberFormatException e) {
                         // button text does not contain a number. This might be the case for locked buttons
                     }// catch
-                    // TODO: 09.10.2018: Start PlayActivity with level number
+                    // TODO: 09.10.2018: Start ActivityPlay with level number
                 }// onClick
             });
             layoutButtonLine.addView(button);
@@ -105,7 +105,7 @@ public class LevelSelectorActivity extends Activity {
                 int pos = (int) (height * yPosition);
                 scrollView.scrollTo(0, pos);
 
-                Log.d("LevelSelectorActivity", "height: " + height + " scroll position: " + pos);
+                Log.d("ActivityLevelSelector", "height: " + height + " scroll position: " + pos);
             }// run
 
             Runnable init(double yPos) {
