@@ -29,7 +29,7 @@ public class GameView extends SurfaceView implements Callback {
     private Bitmap bmpContent[];
     private int activeContent;
 
-    // TODO: 12.09.2018: this might be variable
+    // TODO: 12.09.2018: This might be changed since it is shown in editor screen
     private int width = 500;
     private int height = 500;
 
@@ -61,9 +61,7 @@ public class GameView extends SurfaceView implements Callback {
         mContext.getWindowManager().getDefaultDisplay().getSize(size);
         android.view.ViewGroup.LayoutParams lp = this.getLayoutParams();
 
-//        lp.width = (size.x); // TODO: 12.10.2018: / tilewidth * tilewidth
-//        lp.height = lp.width; // required height
-        lp.width = width; // TODO: 12.10.2018: / tilewidth * tilewidth
+        lp.width = width;
         lp.height = height; // required height
         this.setLayoutParams(lp);
 

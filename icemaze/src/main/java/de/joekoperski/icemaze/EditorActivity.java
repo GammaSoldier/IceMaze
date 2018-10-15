@@ -57,6 +57,8 @@ public class EditorActivity extends Activity {
         theMap = null;
         theGridBitmap = new GameViewEditor(this);
 
+        thePlayer = null;
+
         RelativeLayout surface = findViewById(R.id.gridView);
         surface.addView(theGridBitmap);
 
@@ -335,12 +337,16 @@ public class EditorActivity extends Activity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void TileTouched(int x, int y) {
         if (selectedTile == TileID.TILE_START) {
+            if( thePlayer == null ) {
+                thePlayer = new PlayerCharacter(new Point(0,0));
+            }// if
             thePlayer.setPosition(new Point(x, y));
             for (int i = 0; i < width; i++) {
                 for (int j = 0; j < height; j++) {
-                    if (theMap.getSourceMap(i, j) == TileID.TILE_START)
+                    if (theMap.getSourceMap(i, j) == TileID.TILE_START) {
                         theMap.setSourceMap(i, j, TileID.TILE_ICE);
-                    theMap.setResultMap(i, j, TileID.TILE_ICE);
+                        theMap.setResultMap(i, j, TileID.TILE_ICE);
+                    }// if
                 }// for j
             }// for i
         }// if
@@ -395,6 +401,7 @@ public class EditorActivity extends Activity {
                             }// if
                         }// for j
                     }// for i
+
                     theGridBitmap.setDimensions(width, height);
 
                     // TODO: 15.10.2018:

@@ -97,26 +97,6 @@ public class PlayActivity extends Activity {
         size.y = size.x;
         theGridBitmap.setViewSize(size.x, size.y);
 
-//        ViewTreeObserver vto = theGridBitmap.getViewTreeObserver();
-//        vto.addOnPreDrawListener (new ViewTreeObserver.OnPreDrawListener() {
-//            @Override
-//            public boolean  onPreDraw() {
-//                if(theGridBitmap.getMeasuredWidth() != size.x) {return(false);}
-//                theGridBitmap.getViewTreeObserver().removeOnPreDrawListener(this);
-//
-//                render(true);
-//                return true;
-//            }
-//        });
-
-
-//        theGridBitmap.post( new Runnable() {
-//            @Override
-//            public void run() {
-//                render(true);
-//            }
-//        });
-
         ViewGroup vg = findViewById (R.id.mainLayout);
         vg.invalidate();
         render(true);
