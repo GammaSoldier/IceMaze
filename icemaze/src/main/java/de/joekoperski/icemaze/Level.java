@@ -3,21 +3,34 @@ package de.joekoperski.icemaze;
 import java.io.Serializable;
 
 public class Level implements Serializable {
-    private int mMap[][];
+    private int map[][];
     private int width;
     private int height;
+    private String levelDescription;
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public String getLevelDescription() {
+        return levelDescription;
+    }// getLevelDescription
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void setLevelDescription(String mLevelDescription) {
+        this.levelDescription = mLevelDescription;
+    }// setLevelDescription
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public int getWidth() {
         return width;
-    }
+    }// getWidth
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void setWidth(int width) {
         this.width = width;
-    }
+    }// setWidth
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,15 +43,18 @@ public class Level implements Serializable {
     public void setHeight(int height) {
         this.height = height;
     }
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
     Level(Map map) {
+        levelDescription = null;
         width = map.getWidth();
         height = map.getHeight();
-        mMap = new int[width][height];
+        this.map = new int[width][height];
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                mMap[i][j] = map.getSourceMap(i, j);
+                this.map[i][j] = map.getSourceMap(i, j);
             }// for j
         }// for i
     }// Level
@@ -50,8 +66,8 @@ public class Level implements Serializable {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                map.setSourceMap(i,j,mMap[i][j]);
-                map.setResultMap(i,j,mMap[i][j]);
+                map.setSourceMap(i,j, this.map[i][j]);
+                map.setResultMap(i,j, this.map[i][j]);
             }// for j
         }// for i
         return map;
