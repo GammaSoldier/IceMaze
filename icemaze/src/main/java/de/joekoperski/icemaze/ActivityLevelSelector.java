@@ -1,3 +1,5 @@
+// TODO: 16.10.2018: create background images for each display density
+
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
@@ -21,7 +23,7 @@ public class ActivityLevelSelector extends Activity {
     static final int MAX_LEVELS = 100;
     static final int BUTTONS_PER_LINE = 4;
     static final int LEVEL_SELECTOR_BUTTON_HEIGHT_DIVIDER = 6;
-    static final int LEVEL_SELECTOR_HORIZONTAL_MARGIN_DIVIDER = 25;
+    static final int LEVEL_SELECTOR_HORIZONTAL_MARGIN_DIVIDER = 30;
     static final int LEVEL_SELECTOR_VERTICAL_MARGIN_DIVIDER = 40;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

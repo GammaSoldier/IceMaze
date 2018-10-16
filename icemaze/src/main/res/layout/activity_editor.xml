@@ -5,7 +5,7 @@
     android:id="@+id/editorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33555a"
+    android:background="@drawable/title_screen"
     android:orientation="vertical">
     tools:context=".EditorActivity">
 
@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:autofillHints=""
                 android:background="@android:color/white"
                 android:ems="5"
                 android:inputType="numberDecimal"
