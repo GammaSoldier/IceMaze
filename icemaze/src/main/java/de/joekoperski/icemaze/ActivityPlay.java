@@ -75,7 +75,6 @@ public class ActivityPlay extends Activity {
 
         });
 
-
     }// onCreate
 
 

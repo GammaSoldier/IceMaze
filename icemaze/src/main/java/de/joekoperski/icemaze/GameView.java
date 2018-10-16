@@ -106,9 +106,6 @@ public class GameView extends SurfaceView implements Callback {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void render(Activity activity, Map map, PlayerCharacter player, boolean fullRender) {
-//        int width = getWidth();
-//        int height = getHeight();
-
         int tileWidth = width / map.getWidth();
         int tileHeight = height / map.getHeight();
 
@@ -170,8 +167,6 @@ public class GameView extends SurfaceView implements Callback {
         lp.width = x;
         lp.height = y;
         this.setLayoutParams(lp);
-
-//        invalidate();
     }// setViewSize
 
 

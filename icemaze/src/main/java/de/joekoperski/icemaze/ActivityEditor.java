@@ -532,6 +532,5 @@ public class ActivityEditor extends Activity {
         size.x = ((size.x * 9 / 10) / theMap.getWidth()) * theMap.getWidth();
         size.y = size.x;
         theGridBitmap.setViewSize(size.x, size.y);
-
-    }
+    }// resizeGameView
 }
