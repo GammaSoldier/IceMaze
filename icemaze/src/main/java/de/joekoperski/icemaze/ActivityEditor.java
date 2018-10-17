@@ -402,7 +402,7 @@ public class ActivityEditor extends Activity {
         try {
             FileInputStream f = new FileInputStream(file);
             DataInputStream din = new DataInputStream(f);
-
+            f.close();
         } catch (IOException e) {
             e.printStackTrace();
         }// catch
@@ -500,7 +500,6 @@ public class ActivityEditor extends Activity {
     private void writeTextData(File file) {
         try {
             FileOutputStream f = new FileOutputStream(file);
-            DataOutputStream dout = new DataOutputStream(f);
 
             // write map extents
             JsonWriter writer = new JsonWriter(new OutputStreamWriter(f));
