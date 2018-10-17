@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Ice Maze</string>
-    <string name="play">Play</string>
-    <string name="exit">Exit</string>
-    <string name="edit">Edit</string>
+    <string name="button_play">Play</string>
+    <string name="button_exit">Exit</string>
+    <string name="button_edit">Edit</string>
 
     <string name="select_level">Select Level</string>
     <string name="width">Width</string>

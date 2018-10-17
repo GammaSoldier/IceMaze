@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ice Maze</string>
+    <string name="button_play">Spielen</string>
+    <string name="button_exit">Ende</string>
+    <string name="button_edit">Bearbeiten</string>
+    <string name="select_level">Level Auswahl</string>
+    <string name="width">Breite</string>
+    <string name="height">Höhe</string>
+</resources>
