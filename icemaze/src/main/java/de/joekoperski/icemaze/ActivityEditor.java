@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -21,12 +22,17 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -382,32 +388,7 @@ public class ActivityEditor extends Activity {
             String filePath = dir + "/" + split[split.length - 1];
 
             if (filePath != null) {
-                try {
-                    FileInputStream f = new FileInputStream(filePath);
-                    DataInputStream din = new DataInputStream(f);
-
-                    int width = din.readInt();
-                    int height = din.readInt();
-                    theMap = new Map(width, height);
-                    for (int i = 0; i < theMap.getWidth(); i++) {
-                        for (int j = 0; j < theMap.getHeight(); j++) {
-                            theMap.setSourceMap(i, j, din.readInt());
-                            if (theMap.getSourceMap(i, j) == TileID.TILE_START) {
-                                thePlayer = new PlayerCharacter(new Point(i, j));
-                            }// if
-                        }// for j
-                    }// for i
-
-                    theGridBitmap.setDimensions(width, height);
-                    resizeGameView();
-                    theGridBitmap.render(this, theMap, thePlayer, true);
-
-                    f.close();
-                    Toast.makeText(this, "File loaded", Toast.LENGTH_SHORT).show();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                readBinaryData(filePath);
             }// if
             else {
                 Toast.makeText(this, "File NOT loaded: " + filePath, Toast.LENGTH_SHORT).show();
@@ -415,6 +396,50 @@ public class ActivityEditor extends Activity {
         }// if
     }// onActivityResult
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////#
+    private void readTextData(String file) {
+        try {
+            FileInputStream f = new FileInputStream(file);
+            DataInputStream din = new DataInputStream(f);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }// catch
+
+    }// readTextData
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////#
+    private void readBinaryData(String file) {
+        try {
+            FileInputStream f = new FileInputStream(file);
+            DataInputStream din = new DataInputStream(f);
+
+            int width = din.readInt();
+            int height = din.readInt();
+            theMap = new Map(width, height);
+            for (int i = 0; i < theMap.getWidth(); i++) {
+                for (int j = 0; j < theMap.getHeight(); j++) {
+                    theMap.setSourceMap(i, j, din.readInt());
+                    if (theMap.getSourceMap(i, j) == TileID.TILE_START) {
+                        thePlayer = new PlayerCharacter(new Point(i, j));
+                    }// if
+                }// for j
+            }// for i
+
+            theGridBitmap.setDimensions(width, height);
+            resizeGameView();
+            theGridBitmap.render(this, theMap, thePlayer, true);
+
+            f.close();
+            Toast.makeText(this, "File loaded", Toast.LENGTH_SHORT).show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }// readBinaryData
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void saveFile(int format) {
@@ -478,36 +503,32 @@ public class ActivityEditor extends Activity {
             DataOutputStream dout = new DataOutputStream(f);
 
             // write map extents
-            // TODO: 17.10.2018: this might not be needed in jason implementation
-            dout.writeBytes(String.valueOf(theMap.getWidth()));
-            dout.write(',');
-            dout.writeBytes(String.valueOf(theMap.getHeight()));
-            dout.write('\n');
+            JsonWriter writer = new JsonWriter(new OutputStreamWriter(f));
+            writer.setIndent("    ");
+            writer.beginObject();
+            writer.name("width");
+            writer.value(theMap.getWidth());
+            writer.name("height");
+            writer.value(theMap.getHeight());
 
-            dout.writeBytes("\"map\": [\n");
-            // write map contents
+            writer.name("map");
+            writer.beginArray();
+
             for (int i = 0; i < theMap.getWidth(); i++) {
-                if (i > 0) {
-                    dout.write(',');
-                }// if
-                else {
-                    dout.write(' ');
-                }// else
-                dout.writeBytes("[ ");
+                writer.beginArray();
+                writer.setIndent("");
                 for (int j = 0; j < theMap.getHeight(); j++) {
-                    if (j > 0) {
-                        dout.write(',');
-                    }// if
-                    if(theMap.getSourceMap(i, j) < 10) {
-                        dout.write(' ');        // leading space for single digit numbers
-                    }// if
-                    dout.writeBytes(String.valueOf(theMap.getSourceMap(i, j)));
+                    writer.value(theMap.getSourceMap(i, j));
                 }// for j
-                dout.writeBytes(" ]");
-                dout.write('\n');
+                writer.endArray();
+                writer.setIndent("    ");
 
             }// for i
-            dout.writeBytes("]");
+            writer.endArray();
+            writer.endObject();
+
+            writer.close();
+
             f.close();
         }// try
         catch (IOException e) {
