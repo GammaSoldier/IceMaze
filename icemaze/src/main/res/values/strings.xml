@@ -4,7 +4,9 @@
     <string name="exit">Exit</string>
     <string name="edit">Edit</string>
 
-    <string name="activity_title_screen">TitleScreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="select_level">Select Level</string>
+    <string name="width">Width</string>
+    <string name="height">Height</string>
+
+
 </resources>
