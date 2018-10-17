@@ -307,7 +307,7 @@ public class ActivityEditor extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if( theMap != null ) {
+        if (theMap != null) {
             resizeGameView();
         }// if
     }// onResume
@@ -333,8 +333,8 @@ public class ActivityEditor extends Activity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void TileTouched(int x, int y) {
         if (selectedTile == TileID.TILE_START) {
-            if( thePlayer == null ) {
-                thePlayer = new PlayerCharacter(new Point(0,0));
+            if (thePlayer == null) {
+                thePlayer = new PlayerCharacter(new Point(0, 0));
             }// if
             thePlayer.setPosition(new Point(x, y));
             for (int i = 0; i < width; i++) {
@@ -477,26 +477,37 @@ public class ActivityEditor extends Activity {
             FileOutputStream f = new FileOutputStream(file);
             DataOutputStream dout = new DataOutputStream(f);
 
+            // write map extents
+            // TODO: 17.10.2018: this might not be needed in jason implementation
             dout.writeBytes(String.valueOf(theMap.getWidth()));
             dout.write(',');
             dout.writeBytes(String.valueOf(theMap.getHeight()));
             dout.write('\n');
 
+            dout.writeBytes("\"map\": [\n");
+            // write map contents
             for (int i = 0; i < theMap.getWidth(); i++) {
                 if (i > 0) {
                     dout.write(',');
                 }// if
-                dout.writeBytes("{ ");
+                else {
+                    dout.write(' ');
+                }// else
+                dout.writeBytes("[ ");
                 for (int j = 0; j < theMap.getHeight(); j++) {
                     if (j > 0) {
                         dout.write(',');
                     }// if
+                    if(theMap.getSourceMap(i, j) < 10) {
+                        dout.write(' ');        // leading space for single digit numbers
+                    }// if
                     dout.writeBytes(String.valueOf(theMap.getSourceMap(i, j)));
                 }// for j
-                dout.writeBytes(" }");
+                dout.writeBytes(" ]");
                 dout.write('\n');
 
             }// for i
+            dout.writeBytes("]");
             f.close();
         }// try
         catch (IOException e) {
