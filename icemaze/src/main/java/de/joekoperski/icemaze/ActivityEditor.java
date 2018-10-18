@@ -90,7 +90,6 @@ public class ActivityEditor extends Activity {
         buttonLoad.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 loadFile();
-                Toast.makeText(ActivityEditor.this, "Level imported", Toast.LENGTH_SHORT).show();
             }// onClick
         });
 
