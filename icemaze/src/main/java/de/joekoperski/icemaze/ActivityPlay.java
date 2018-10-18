@@ -40,22 +40,15 @@ public class ActivityPlay extends Activity {
         surface.addView(theGridBitmap);
 
         Button button = findViewById(R.id.button);
+        ////////////////////////////////////////////////////////////////////////////////////////////
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 startGame();
             }// onClick
         });
 
-        Button buttonEditor = findViewById(R.id.buttonEditor);
-        buttonEditor.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getBaseContext(), ActivityEditor.class);
-                startActivity(myIntent);
-            }// onClick
-        });
-
         View contentView = findViewById(R.id.mainLayout);
-
+        ////////////////////////////////////////////////////////////////////////////////////////////
         contentView.setOnTouchListener(new OnSwipeTouchListener(this) {
             public void onSwipeTop() {
                 makeMove(Direction.NORTH);
@@ -97,7 +90,7 @@ public class ActivityPlay extends Activity {
         size.y = size.x;
         theGridBitmap.setViewSize(size.x, size.y);
 
-        ViewGroup vg = findViewById (R.id.mainLayout);
+        ViewGroup vg = findViewById(R.id.mainLayout);
         vg.invalidate();
         render(true);
     }// startGame

@@ -1,6 +1,7 @@
 package de.joekoperski.icemaze;
 
 import android.graphics.Point;
+
 import java.io.Serializable;
 
 public class Map implements Serializable {

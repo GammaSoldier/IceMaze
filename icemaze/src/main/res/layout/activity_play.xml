@@ -27,14 +27,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp"
         android:background="@android:color/holo_green_light"
-        android:text="Start" />
+        android:text="Restart" />
 
-    <Button
-        android:id="@+id/buttonEditor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageView"
-        android:layout_alignTop="@+id/button"
-        android:background="#ffb237"
-        android:text="Editor" />
 </RelativeLayout>

@@ -170,5 +170,4 @@ public class GameView extends SurfaceView implements Callback {
     }// setViewSize
 
 
-
 }// GameView

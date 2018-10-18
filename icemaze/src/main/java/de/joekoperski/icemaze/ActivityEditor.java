@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.JsonWriter;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -22,31 +21,25 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ActivityEditor extends Activity {
+    public static final int REQUEST_READ_STORAGE = 111;
     public static final int REQUEST_WRITE_STORAGE = 112;
     public static final int FILE_SELECT_CODE = 123;
 
-    public static final int FILE_FORMAT_BINARY = 0;
-    public static final int FILE_FORMAT_TEXT = 1;
-
     private GameViewEditor theGridBitmap;
     private int selectedTile;
-    private int width;
-    private int height;
+
     private Map theMap;
     private PlayerCharacter thePlayer;
     private Level theLevel;
@@ -83,30 +76,21 @@ public class ActivityEditor extends Activity {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+        Button buttonSave = findViewById(R.id.buttonSave);
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                saveFile();
+                Toast.makeText(ActivityEditor.this, "Level exported", Toast.LENGTH_SHORT).show();
+            }// onClick
+        });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonLoad = findViewById(R.id.buttonLoad);
         buttonLoad.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 loadFile();
-            }// onClick
-        });
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        Button buttonSave = findViewById(R.id.buttonSave);
-        buttonSave.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                saveFile(FILE_FORMAT_BINARY);
-                Toast.makeText(ActivityEditor.this, "Level saved", Toast.LENGTH_SHORT).show();
-            }// onClick
-        });
-
-
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        Button buttonExport = findViewById(R.id.buttonExport);
-        buttonExport.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                saveFile(FILE_FORMAT_TEXT);
-                Toast.makeText(ActivityEditor.this, "Level exported", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityEditor.this, "Level imported", Toast.LENGTH_SHORT).show();
             }// onClick
         });
 
@@ -298,9 +282,9 @@ public class ActivityEditor extends Activity {
             public void onClick(View v) {
                 // read Editviews
                 EditText edit = findViewById(R.id.editTextWidth);
-                width = Integer.parseInt(edit.getText().toString());
+                int width = Integer.parseInt(edit.getText().toString());
                 edit = findViewById(R.id.editTextHeight);
-                height = Integer.parseInt(edit.getText().toString());
+                int height = Integer.parseInt(edit.getText().toString());
                 generateMap(width, height);
 
             }// onClick
@@ -343,8 +327,8 @@ public class ActivityEditor extends Activity {
                 thePlayer = new PlayerCharacter(new Point(0, 0));
             }// if
             thePlayer.setPosition(new Point(x, y));
-            for (int i = 0; i < width; i++) {
-                for (int j = 0; j < height; j++) {
+            for (int i = 0; i < theMap.getWidth(); i++) {
+                for (int j = 0; j < theMap.getHeight(); j++) {
                     if (theMap.getSourceMap(i, j) == TileID.TILE_START) {
                         theMap.setSourceMap(i, j, TileID.TILE_ICE);
                         theMap.setResultMap(i, j, TileID.TILE_ICE);
@@ -363,12 +347,20 @@ public class ActivityEditor extends Activity {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     public void loadFile() {
-        String type = "*/*";
+        boolean hasPermission = (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (!hasPermission) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    REQUEST_READ_STORAGE);
+        }// if
+        else {
+            String type = "*/*";
 
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType(type);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(Intent.createChooser(intent, "select file"), FILE_SELECT_CODE);
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType(type);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(Intent.createChooser(intent, "select file"), FILE_SELECT_CODE);
+        }// else
     }// loadFile
 
 
@@ -387,12 +379,7 @@ public class ActivityEditor extends Activity {
             final String[] split = file.getPath().split("/");
             String filePath = dir + "/" + split[split.length - 1];
 
-            if (filePath != null) {
-                readBinaryData(filePath);
-            }// if
-            else {
-                Toast.makeText(this, "File NOT loaded: " + filePath, Toast.LENGTH_SHORT).show();
-            }// else
+            readTextData(filePath);
         }// if
     }// onActivityResult
 
@@ -400,9 +387,22 @@ public class ActivityEditor extends Activity {
     ////////////////////////////////////////////////////////////////////////////////////////////////#
     private void readTextData(String file) {
         try {
-            FileInputStream f = new FileInputStream(file);
-            DataInputStream din = new DataInputStream(f);
-            f.close();
+            Gson gson = new Gson();
+            JsonReader reader = new JsonReader(new FileReader(file));
+            theMap = gson.fromJson(reader, Map.class);
+            reader.close();
+
+            for (int i = 0; i < theMap.getWidth(); i++) {
+                for (int j = 0; j < theMap.getHeight(); j++) {
+                    if (theMap.getSourceMap(i, j) == TileID.TILE_START) {
+                        thePlayer = new PlayerCharacter(new Point(i, j));
+                    }// if
+                }// for j
+            }// for i
+
+            theGridBitmap.setDimensions(theMap.getWidth(), theMap.getHeight());
+            resizeGameView();
+            theGridBitmap.render(this, theMap, thePlayer, true);
         } catch (IOException e) {
             e.printStackTrace();
         }// catch
@@ -410,39 +410,8 @@ public class ActivityEditor extends Activity {
     }// readTextData
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////#
-    private void readBinaryData(String file) {
-        try {
-            FileInputStream f = new FileInputStream(file);
-            DataInputStream din = new DataInputStream(f);
-
-            int width = din.readInt();
-            int height = din.readInt();
-            theMap = new Map(width, height);
-            for (int i = 0; i < theMap.getWidth(); i++) {
-                for (int j = 0; j < theMap.getHeight(); j++) {
-                    theMap.setSourceMap(i, j, din.readInt());
-                    if (theMap.getSourceMap(i, j) == TileID.TILE_START) {
-                        thePlayer = new PlayerCharacter(new Point(i, j));
-                    }// if
-                }// for j
-            }// for i
-
-            theGridBitmap.setDimensions(width, height);
-            resizeGameView();
-            theGridBitmap.render(this, theMap, thePlayer, true);
-
-            f.close();
-            Toast.makeText(this, "File loaded", Toast.LENGTH_SHORT).show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }// readBinaryData
-
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    public void saveFile(int format) {
+    public void saveFile() {
         boolean hasPermission = (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
         if (!hasPermission) {
             ActivityCompat.requestPermissions(this,
@@ -457,77 +426,24 @@ public class ActivityEditor extends Activity {
                 Log.d("ActivityEditor", "could not create directory: " + dir);
             }// if
 
-            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss");
             String strDt = simpleDate.format(new Date());
 
-            if (format == FILE_FORMAT_BINARY) {
-                File file = new File(dir, "icemaze" + strDt + ".bin");
-                writeBinaryData(file);
-            }// if
-            else {
-                File file = new File(dir, "icemaze" + strDt + ".txt");
-                writeTextData(file);
-            }// else
+            File file = new File(dir, "icemaze-" + strDt + ".txt");
+            writeTextData(file);
         }// else
     }// saveFile
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    private void writeBinaryData(File file) {
-        try {
-            FileOutputStream f = new FileOutputStream(file);
-            DataOutputStream dout = new DataOutputStream(f);
-
-            dout.writeInt(theMap.getWidth());
-            dout.writeInt(theMap.getHeight());
-
-            for (int i = 0; i < theMap.getWidth(); i++) {
-                for (int j = 0; j < theMap.getHeight(); j++) {
-                    dout.writeInt(theMap.getSourceMap(i, j));
-                }// for j
-            }// for i
-            f.close();
-
-        }// try
-        catch (IOException e) {
-            e.printStackTrace();
-        }// catch
-
-    }// writeBinaryData
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void writeTextData(File file) {
         try {
             FileOutputStream f = new FileOutputStream(file);
+            DataOutputStream dout = new DataOutputStream(f);
 
-            // write map extents
-            JsonWriter writer = new JsonWriter(new OutputStreamWriter(f));
-            writer.setIndent("    ");
-            writer.beginObject();
-            writer.name("width");
-            writer.value(theMap.getWidth());
-            writer.name("height");
-            writer.value(theMap.getHeight());
-
-            writer.name("map");
-            writer.beginArray();
-
-            for (int i = 0; i < theMap.getWidth(); i++) {
-                writer.beginArray();
-                writer.setIndent("");
-                for (int j = 0; j < theMap.getHeight(); j++) {
-                    writer.value(theMap.getSourceMap(i, j));
-                }// for j
-                writer.endArray();
-                writer.setIndent("    ");
-
-            }// for i
-            writer.endArray();
-            writer.endObject();
-
-            writer.close();
-
+            Gson gson = new Gson();
+            String jsonOutput = gson.toJson(theMap);
+            dout.writeBytes(jsonOutput);
             f.close();
         }// try
         catch (IOException e) {
@@ -550,6 +466,15 @@ public class ActivityEditor extends Activity {
                 }// if
                 else {
                     Toast.makeText(this, "The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
+                }// else
+                break;
+            case REQUEST_READ_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "The app was allowed to read to your storage!", Toast.LENGTH_LONG).show();
+                    // Reload the activity with permission granted or use the features what required the permission
+                }// if
+                else {
+                    Toast.makeText(this, "The app was not allowed to read to your storage. Hence, it cannot function properly. Please consider granting it this permission", Toast.LENGTH_LONG).show();
                 }// else
                 break;
         }// switch
