@@ -4,6 +4,7 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -96,6 +97,8 @@ public class ActivityLevelSelector extends Activity {
     protected void onResume() {
         super.onResume();
         // TODO: 09.10.2018: read the actual level from saved data
+        // Levels levels = new Levels("levels.json", this);
+
         int level = 23;
         double scrollPosition = ((Math.ceil((double) level / BUTTONS_PER_LINE) - 1) / (MAX_LEVELS / BUTTONS_PER_LINE));
         scrollView.post(new Runnable() {

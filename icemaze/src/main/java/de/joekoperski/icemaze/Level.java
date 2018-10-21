@@ -7,6 +7,23 @@ public class Level implements Serializable {
     private int width;
     private int height;
     private String levelDescription;
+    private String imageResource;
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    Level(Map map) {
+        levelDescription = "";
+        imageResource = "";
+        width = map.getWidth();
+        height = map.getHeight();
+        this.map = new int[width][height];
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                this.map[i][j] = map.getSourceMap(i, j);
+            }// for j
+        }// for i
+    }// Level
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////x
@@ -43,21 +60,6 @@ public class Level implements Serializable {
     public void setHeight(int height) {
         this.height = height;
     }
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    Level(Map map) {
-        levelDescription = null;
-        width = map.getWidth();
-        height = map.getHeight();
-        this.map = new int[width][height];
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                this.map[i][j] = map.getSourceMap(i, j);
-            }// for j
-        }// for i
-    }// Level
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
