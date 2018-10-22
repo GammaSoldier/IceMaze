@@ -1,4 +1,5 @@
 // TODO: 16.10.2018: create background images for each display density
+// TODO: 22.10.2018: Restructure onCreate. Method too large 
 
 package de.joekoperski.icemaze;
 
