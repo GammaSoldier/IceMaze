@@ -3,8 +3,8 @@
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,15 +17,21 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+import java.io.InputStream;
+
 public class ActivityLevelSelector extends Activity {
 
-    ScrollView scrollView;
-    LinearLayout layout;
-    static final int MAX_LEVELS = 100;
+    //    static final int MAX_LEVELS = 100;
     static final int BUTTONS_PER_LINE = 4;
     static final int LEVEL_SELECTOR_BUTTON_HEIGHT_DIVIDER = 6;
     static final int LEVEL_SELECTOR_HORIZONTAL_MARGIN_DIVIDER = 30;
     static final int LEVEL_SELECTOR_VERTICAL_MARGIN_DIVIDER = 40;
+    ScrollView scrollView;
+    LinearLayout layout;
+    Levels levels;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -59,7 +65,12 @@ public class ActivityLevelSelector extends Activity {
         layoutButtonLine.setOrientation(LinearLayout.HORIZONTAL);
         layoutButtonLine.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_GRAVITY);
 
-        for (int i = 1; i <= MAX_LEVELS; i++) {
+        // read levels
+        String myJson = inputStreamToString(this.getResources().openRawResource(R.raw.levels));
+        levels = new Gson().fromJson(myJson, Levels.class);
+
+        // generate buttons
+        for (int i = 1; i <= levels.levelArray.size(); i++) {
             button = new Button(this);
             // TODO: 10.10.2018: differentiate between locked and unlocked level selection button
             button.setText(String.valueOf(i));
@@ -72,11 +83,15 @@ public class ActivityLevelSelector extends Activity {
                     Button b = (Button) v;
                     try {
                         int num = Integer.parseInt(b.getText().toString());
+                        Intent myIntent = new Intent(getBaseContext(), ActivityPlay.class);
+
+                        myIntent.putExtra("Level", levels.levelArray.get(num));
+                        startActivity(myIntent);
                     }//try
                     catch (NumberFormatException e) {
-                        // button text does not contain a number. This might be the case for locked buttons
+                        // button text does not contain a number. This might be the case for locked buttons. Do nothing
                     }// catch
-                    // TODO: 09.10.2018: Start ActivityPlay with level number
+
                 }// onClick
             });
             layoutButtonLine.addView(button);
@@ -96,11 +111,11 @@ public class ActivityLevelSelector extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO: 09.10.2018: read the actual level from saved data
-        // Levels levels = new Levels("levels.json", this);
 
-        int level = 23;
-        double scrollPosition = ((Math.ceil((double) level / BUTTONS_PER_LINE) - 1) / (MAX_LEVELS / BUTTONS_PER_LINE));
+        // TODO: 22.10.2018: read actual level from settings file
+        int level = 1;
+
+        double scrollPosition = ((Math.ceil((double) level / BUTTONS_PER_LINE) - 1) / (levels.levelArray.size() / BUTTONS_PER_LINE));
         scrollView.post(new Runnable() {
             double yPosition;
 
@@ -120,4 +135,16 @@ public class ActivityLevelSelector extends Activity {
         }.init(scrollPosition));
     }// onResume
 
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public String inputStreamToString(InputStream inputStream) {
+        try {
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, bytes.length);
+            String json = new String(bytes);
+            return json;
+        } catch (IOException e) {
+            return null;
+        }
+    }// inputStreamToString
 }
