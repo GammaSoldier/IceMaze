@@ -84,9 +84,10 @@ public class ActivityLevelSelector extends Activity {
                     Button b = (Button) v;
                     try {
                         int num = Integer.parseInt(b.getText().toString());
-                        Intent myIntent = new Intent(getBaseContext(), ActivityPlay.class);
+                        Intent myIntent = new Intent(getBaseContext(), ActivityLevelTitle.class);
 
-                        myIntent.putExtra("Level", levels.levelArray.get(num-1));
+                        myIntent.putExtra("Levels", levels);
+                        myIntent.putExtra("int", num);
                         startActivity(myIntent);
                     }//try
                     catch (NumberFormatException e) {

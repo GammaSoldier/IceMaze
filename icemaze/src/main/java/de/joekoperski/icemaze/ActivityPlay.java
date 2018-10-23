@@ -20,7 +20,8 @@ public class ActivityPlay extends Activity {
     Rules theRules;
     GameView theGridBitmap;
     RelativeLayout surface;
-    Level theLevel;
+    Levels theLevels;
+    int levelIndex;          // the 1-based level index
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     @Override
@@ -34,9 +35,10 @@ public class ActivityPlay extends Activity {
         theGridBitmap = new GameView(this);
 
         Intent anIntent = getIntent();
-        theLevel = (Level) anIntent.getSerializableExtra("Level");
+        theLevels = (Levels) anIntent.getSerializableExtra("Levels");
+        levelIndex = anIntent.getIntExtra("int", 1);
 
-        surface = findViewById(R.id.imageView);
+        surface = findViewById(R.id.imageViewLevelImage);
         surface.addView(theGridBitmap);
 
         Button button = findViewById(R.id.button);
@@ -82,7 +84,7 @@ public class ActivityPlay extends Activity {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     private void startGame() {
         theRules = new Rules();
-        theRules.initLevel(theLevel);
+        theRules.initLevel(theLevels.levelArray.get(levelIndex -1));
         // TODO: 12.10.2018: set size of gameview
         final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -116,7 +118,7 @@ public class ActivityPlay extends Activity {
                 break;
             case LEVEL_RESTART:
                 // TODO: 12.09.2018: pass the same level
-                theRules.initLevel(theLevel);
+                theRules.initLevel(theLevels.levelArray.get(levelIndex -1));
                 render(true);
                 break;
 

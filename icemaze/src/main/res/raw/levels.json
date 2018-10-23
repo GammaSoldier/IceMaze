@@ -2,7 +2,7 @@
   "levelArray": [
     {
       "levelDescription": "This is level 1",
-      "imageResource": "",
+      "imageResource": "tile_teleport",
 
       "width":5,
       "height":5,

@@ -50,11 +50,11 @@ the collection of all levels looks like this:
 
 package de.joekoperski.icemaze;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Levels {
+public class Levels implements Serializable {
 
     public ArrayList<Level> levelArray;
-//    public Level level;
 }
