@@ -1,5 +1,4 @@
 
-
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
@@ -18,6 +17,7 @@ public class ActivityLevelTitle extends Activity {
     Levels theLevels;
     int levelIndex;          // the 1-based level index
 
+    ////////////////////////////////////////////////////////////////////////////////////////////
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -38,11 +38,12 @@ public class ActivityLevelTitle extends Activity {
 
         ImageView levelImage = findViewById(R.id.imageViewLevelImage);
         String levelImageResource = theLevels.levelArray.get(levelIndex - 1).getImageResource();
-        if (levelImageResource != "") {
+        if (levelImageResource.contentEquals("")) {
+        }//if
+        else {
             int resId = getResources().getIdentifier(levelImageResource, "drawable", getPackageName());
             levelImage.setImageResource(resId);
-        }//if
-
+        }// else
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         Button buttonPlay = findViewById(R.id.buttonPlay);
