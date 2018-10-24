@@ -43,6 +43,7 @@ public class ActivityEditor extends Activity {
     private Map theMap;
     private PlayerCharacter thePlayer;
     private Level theLevel;
+    private Levels theLevels ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +70,11 @@ public class ActivityEditor extends Activity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getBaseContext(), ActivityPlay.class);
                 theLevel = new Level(theMap);
-                myIntent.putExtra("Level", theLevel);
+                theLevels = new Levels();
+                theLevels.levelArray.add(0, theLevel);
+
+                myIntent.putExtra("Levels", theLevels);
+                myIntent.putExtra("int", 1);    // 1-based(!) level index
                 startActivity(myIntent);
             }// onClick
         });

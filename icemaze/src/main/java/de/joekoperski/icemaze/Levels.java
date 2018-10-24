@@ -57,4 +57,8 @@ import java.util.ArrayList;
 public class Levels implements Serializable {
 
     public ArrayList<Level> levelArray;
+
+    public Levels() {
+        this.levelArray = new ArrayList<>();
+    }
 }
