@@ -31,17 +31,29 @@ public class ActivityLevelTitle extends Activity {
         levelIndex = anIntent.getIntExtra("int", 0);
 
         //init gui elements
+        String string;
+        // level title
         TextView textView = findViewById(R.id.textViewLevelNumber);
-        textView.setText("Level " + levelIndex);
-        textView = findViewById(R.id.textViewLevelDescription);
-        textView.setText(theLevels.levelArray.get(levelIndex - 1).getLevelDescription());
+        textView.setText(getString(R.string.levelHeader, levelIndex));
 
-        ImageView levelImage = findViewById(R.id.imageViewLevelImage);
-        String levelImageResource = theLevels.levelArray.get(levelIndex - 1).getImageResource();
-        if (levelImageResource.contentEquals("")) {
+        // level description
+        textView = findViewById(R.id.textViewLevelDescription);
+        string = theLevels.levelArray.get(levelIndex - 1).getLevelDescription();
+        if (string.contentEquals("")) {
+            textView.setText(R.string.levelDescriptionDefault);
         }//if
         else {
-            int resId = getResources().getIdentifier(levelImageResource, "drawable", getPackageName());
+            int resId = getResources().getIdentifier(string, "string", getPackageName());
+            textView.setText(resId);
+        }// else
+
+        // level image
+        ImageView levelImage = findViewById(R.id.imageViewLevelImage);
+        string = theLevels.levelArray.get(levelIndex - 1).getImageResource();
+        if (string.contentEquals("")) {
+        }//if
+        else {
+            int resId = getResources().getIdentifier(string, "drawable", getPackageName());
             levelImage.setImageResource(resId);
         }// else
 

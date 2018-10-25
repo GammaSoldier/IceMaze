@@ -26,7 +26,6 @@ public class Rules {
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    // TODO pass a level to this method.
     void initLevel(Level level) {
         theMap = level.getMap();
         levelWidth = theMap.getWidth();

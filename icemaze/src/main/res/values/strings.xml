@@ -8,5 +8,14 @@
     <string name="width">Width</string>
     <string name="height">Height</string>
 
+    <string name="levelHeader" translatable="false">Level %1$d</string>
+
+    <!--Level descriptions ********************************************************************* -->
+    <string name="levelDescriptionDefault">Just another level</string>
+
+    <string name="levelDescription1">This is the first level</string>
+    <string name="levelDescription2">This is the second level</string>
+    <string name="levelDescription3">This is the third level</string>
+
 
 </resources>

@@ -1,5 +1,4 @@
 // TODO: 16.10.2018: create background images for each display density
-// TODO: 22.10.2018: Restructure onCreate. Method too large 
 
 package de.joekoperski.icemaze;
 
@@ -43,6 +42,11 @@ public class ActivityLevelSelector extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_level_selector);
 
+        // read levels
+        String myJson = inputStreamToString(this.getResources().openRawResource(R.raw.levels));
+        levels = new Gson().fromJson(myJson, Levels.class);
+
+        //create GUI
         scrollView = findViewById(R.id.scrollView);
 
         layout = findViewById(R.id.levelButtonList);
@@ -65,10 +69,6 @@ public class ActivityLevelSelector extends Activity {
         layoutButtonLine = new LinearLayout(this);
         layoutButtonLine.setOrientation(LinearLayout.HORIZONTAL);
         layoutButtonLine.setHorizontalGravity(LinearLayout.TEXT_ALIGNMENT_GRAVITY);
-
-        // read levels
-        String myJson = inputStreamToString(this.getResources().openRawResource(R.raw.levels));
-        levels = new Gson().fromJson(myJson, Levels.class);
 
         // generate buttons
         for (int i = 1; i <= levels.levelArray.size(); i++) {

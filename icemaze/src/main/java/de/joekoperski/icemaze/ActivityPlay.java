@@ -1,5 +1,5 @@
 // TODO: 05.10.2018: Smooth animation 
-// TODO: 05.10.2018: different screens
+// TODO: 05.10.2018: Level complete screen
 // TODO: 05.10.2018: make editor only available in debug version
 package de.joekoperski.icemaze;
 
@@ -117,7 +117,6 @@ public class ActivityPlay extends Activity {
                 // TODO: 12.09.2018: start the next level
                 break;
             case LEVEL_RESTART:
-                // TODO: 12.09.2018: pass the same level
                 theRules.initLevel(theLevels.levelArray.get(levelIndex -1));
                 render(true);
                 break;

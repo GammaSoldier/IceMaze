@@ -113,7 +113,6 @@ public class GameView extends SurfaceView implements Callback {
         Canvas canvas = new Canvas(bmpContent[1 - activeContent]);
         canvas.drawBitmap(bmpContent[activeContent], null, new Rect(0, 0, width, height), null);
 
-        // TODO: 12.09.2018: just for debugging purpose
         long startTime = System.currentTimeMillis();
 
         if (fullRender) {

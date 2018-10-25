@@ -1,7 +1,7 @@
 {
   "levelArray": [
     {
-      "levelDescription": "This is level 1",
+      "levelDescription": "levelDescription1",
       "imageResource": "tile_teleport",
       "width":5,
       "height":5,
@@ -16,7 +16,7 @@
 
 
     {
-      "levelDescription": "This is level 2",
+      "levelDescription": "levelDescription2",
       "imageResource": "",
       "width":9,
       "height":9,
@@ -35,7 +35,7 @@
 
 
     {
-      "levelDescription": "This is level 3",
+      "levelDescription": "levelDescription3",
       "imageResource": "",
       "width":7,
       "height":7,
@@ -52,7 +52,7 @@
 
 
     {
-      "levelDescription": "This is level 4",
+      "levelDescription": "",
       "imageResource": "",
       "width":7,
       "height":7,
