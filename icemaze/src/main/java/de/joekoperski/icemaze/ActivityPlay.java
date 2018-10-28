@@ -114,7 +114,18 @@ public class ActivityPlay extends Activity {
             case PLAYER_STOP:
                 break;
             case LEVEL_COMPLETE:
-                // TODO: 12.09.2018: start the next level
+                if(levelIndex == Preferences.getNextLevelToPlay(this)) {
+                    Preferences.setNextLevelToPlay(this, levelIndex + 1);
+                }// if
+                // TODO: 26.10.2018: display dialog: next level or select level
+
+                // goto level selector
+                Intent myIntent = new Intent(getBaseContext(), ActivityLevelSelector.class);
+
+                myIntent.putExtra("Levels", theLevels);
+                myIntent.putExtra("int", levelIndex + 1);
+                startActivity(myIntent);
+
                 break;
             case LEVEL_RESTART:
                 theRules.initLevel(theLevels.levelArray.get(levelIndex -1));

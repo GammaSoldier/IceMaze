@@ -5,6 +5,7 @@
     <string name="button_edit">Edit</string>
 
     <string name="select_level">Select Level</string>
+    <string name="level_locked">You can\'t play this level yet</string>
     <string name="width">Width</string>
     <string name="height">Height</string>
 

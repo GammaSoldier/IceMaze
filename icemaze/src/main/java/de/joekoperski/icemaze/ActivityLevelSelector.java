@@ -4,6 +4,7 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -72,31 +74,51 @@ public class ActivityLevelSelector extends Activity {
 
         // generate buttons
         for (int i = 1; i <= levels.levelArray.size(); i++) {
-            button = new Button(this);
             // TODO: 10.10.2018: differentiate between locked and unlocked level selection button
-            button.setText(String.valueOf(i));
-            button.setBackground(getResources().getDrawable(R.drawable.button_level_selector));
-            button.setLayoutParams(lp);
 
-            button.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    // Perform action on click
-                    Button b = (Button) v;
-                    try {
-                        int num = Integer.parseInt(b.getText().toString());
-                        Intent myIntent = new Intent(getBaseContext(), ActivityLevelTitle.class);
+            if (i <= Preferences.getNextLevelToPlay(this)) {
+                button = new Button(this);
+                button.setText(String.valueOf(i));
+                button.setBackground(getResources().getDrawable(R.drawable.button_level_selector));
+                button.setLayoutParams(lp);
 
-                        myIntent.putExtra("Levels", levels);
-                        myIntent.putExtra("int", num);
-                        startActivity(myIntent);
-                    }//try
-                    catch (NumberFormatException e) {
-                        // button text does not contain a number. This might be the case for locked buttons. Do nothing
-                    }// catch
+                button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        Button b = (Button) v;
+                        try {
+                            int num = Integer.parseInt(b.getText().toString());
+                            Intent myIntent = new Intent(getBaseContext(), ActivityLevelTitle.class);
 
-                }// onClick
-            });
-            layoutButtonLine.addView(button);
+                            myIntent.putExtra("Levels", levels);
+                            myIntent.putExtra("int", num);
+                            startActivity(myIntent);
+                        }//try
+                        catch (NumberFormatException e) {
+                            // button text does not contain a number. This might be the case for locked buttons. Do nothing
+                        }// catch
+
+                    }// onClick
+                });
+                layoutButtonLine.addView(button);
+            }// if
+            else {
+                button = new Button(this);
+//                button.setText(String.valueOf(i));
+                button.setBackground(getResources().getDrawable(R.drawable.button_level_locked));
+                button.setLayoutParams(lp);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+
+                        Toast.makeText(ActivityLevelSelector.this, R.string.level_locked, Toast.LENGTH_SHORT).show();
+
+                    }// onClick
+                });
+                layoutButtonLine.addView(button);
+
+            }// else
 
             if (i % BUTTONS_PER_LINE == 0) {
                 layout.addView(layoutButtonLine);
@@ -149,4 +171,5 @@ public class ActivityLevelSelector extends Activity {
             return null;
         }
     }// inputStreamToString
+
 }
