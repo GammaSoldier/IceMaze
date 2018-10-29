@@ -4,7 +4,6 @@ package de.joekoperski.icemaze;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -104,16 +103,13 @@ public class ActivityLevelSelector extends Activity {
             }// if
             else {
                 button = new Button(this);
-//                button.setText(String.valueOf(i));
                 button.setBackground(getResources().getDrawable(R.drawable.button_level_locked));
                 button.setLayoutParams(lp);
 
                 button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         // Perform action on click
-
-                        Toast.makeText(ActivityLevelSelector.this, R.string.level_locked, Toast.LENGTH_SHORT).show();
-
+                        Toast.makeText(ActivityLevelSelector.this, R.string.locked_level, Toast.LENGTH_SHORT).show();
                     }// onClick
                 });
                 layoutButtonLine.addView(button);

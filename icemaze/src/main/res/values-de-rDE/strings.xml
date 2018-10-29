@@ -11,4 +11,8 @@
     <string name="levelDescription1">Das erste Level</string>
     <string name="levelDescription2">Das zweite Level</string>
     <string name="levelDescription3">Das dritte Level</string>
+    <string name="button_next_level">Nächstes Level</string>
+    <string name="button_select_level">Level wählen</string>
+    <string name="locked_level">Du kannst dieses Level noch nicht spielen</string>
+    <string name="congrats">Herzlichen Glückwunsch</string>
 </resources>
