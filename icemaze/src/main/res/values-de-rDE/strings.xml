@@ -15,4 +15,6 @@
     <string name="button_select_level">Level wählen</string>
     <string name="locked_level">Du kannst dieses Level noch nicht spielen</string>
     <string name="congrats">Herzlichen Glückwunsch</string>
+    <string name="level_done">Du hast es geschafft.</string>
+    <string name="finalLevelDone">Du hast es geschafft. Du hast alle Levels geschafft und bist am Ziel deiner Reise.\\n\\rVielen Dank für\'s Spielen!</string>
 </resources>

@@ -21,6 +21,8 @@
     <string name="levelDescription1">This is the first level</string>
     <string name="levelDescription2">This is the second level</string>
     <string name="levelDescription3">This is the third level</string>
+    <string name="level_done">You\'ve made it</string>
+    <string name="finalLevelDone">You\' ve made it. You just finished the final level. \\n\\rThank you for playing</string>
 
 
 </resources>

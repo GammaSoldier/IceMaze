@@ -9,11 +9,13 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class DialogLevelComplete extends Dialog {
 
     DialogLevelCompleteListener mListener;
     Context mContext;
+    boolean mFinalLevel;
 
     public interface DialogLevelCompleteListener {
         void onDialogNextLevelClick(Dialog dialog);
@@ -24,7 +26,18 @@ public class DialogLevelComplete extends Dialog {
     public DialogLevelComplete(@NonNull Context context) {
         super(context);
         mContext = context;
+        mFinalLevel = false;
     }// DialogLevelComplete
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    public void show(boolean finalLevel) {
+        show();
+        if( finalLevel) {
+            findViewById(R.id.button_next_level).setVisibility(View.INVISIBLE);
+            ((TextView)findViewById(R.id.textViewLevelComplete)).setText(R.string.finalLevelDone);
+        }// if
+    }// show
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
