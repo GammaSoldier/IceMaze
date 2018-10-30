@@ -16,7 +16,7 @@
 
 
     {
-      "levelDescription": "",
+      "levelDescription": "levelDescription2",
       "imageResource": "",
       "width":9,
       "height":9,
@@ -52,7 +52,7 @@
 
 
     {
-      "levelDescription": "levelDescription2",
+      "levelDescription": "",
       "imageResource": "",
       "width":9,
       "height":9,
