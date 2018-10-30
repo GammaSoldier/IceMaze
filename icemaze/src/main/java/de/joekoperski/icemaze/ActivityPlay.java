@@ -1,5 +1,4 @@
 // TODO: 05.10.2018: Smooth animation 
-// TODO: 05.10.2018: Level complete screen
 // TODO: 05.10.2018: make editor only available in debug version
 package de.joekoperski.icemaze;
 
@@ -89,9 +88,6 @@ public class ActivityPlay extends Activity implements DialogLevelComplete.Dialog
         // goto level selector
         if (levelIndex >= theLevels.levelArray.size()) {
             //no more levels
-// TODO: 29.10.2018: implement final screen
-//            Intent myIntent = new Intent(getBaseContext(), ActivityLevelTitle.class);
-//            startActivity(myIntent);
         }//if
         else {
             Intent myIntent = new Intent(getBaseContext(), ActivityLevelTitle.class);
@@ -118,7 +114,7 @@ public class ActivityPlay extends Activity implements DialogLevelComplete.Dialog
     private void startGame() {
         theRules = new Rules();
         theRules.initLevel(theLevels.levelArray.get(levelIndex - 1));
-        // TODO: 12.10.2018: set size of gameview
+
         final Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         size.x = ((size.x * 9 / 10) / theRules.getTheMap().getWidth()) * theRules.getTheMap().getWidth();

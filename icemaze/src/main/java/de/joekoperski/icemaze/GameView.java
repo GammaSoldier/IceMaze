@@ -28,9 +28,8 @@ public class GameView extends SurfaceView implements Callback {
     private Bitmap bmpContent[];
     private int activeContent;
 
-    // TODO: 12.09.2018: This might be changed since it is shown in editor screen
-    private int width = 500;
-    private int height = 500;
+    private int width = 500;        // arbitrary value, since this is only displayed in editor
+    private int height = 500;       // arbitrary value, since this is only displayed in editor
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////

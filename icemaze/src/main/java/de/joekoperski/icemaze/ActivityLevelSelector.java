@@ -73,8 +73,6 @@ public class ActivityLevelSelector extends Activity {
 
         // generate buttons
         for (int i = 1; i <= levels.levelArray.size(); i++) {
-            // TODO: 10.10.2018: differentiate between locked and unlocked level selection button
-
             if (i <= Preferences.getNextLevelToPlay(this)) {
                 button = new Button(this);
                 button.setText(String.valueOf(i));
@@ -132,7 +130,6 @@ public class ActivityLevelSelector extends Activity {
     protected void onResume() {
         super.onResume();
 
-        // TODO: 22.10.2018: read actual level from settings file
         int level = 1;
 
         double scrollPosition = ((Math.ceil((double) level / BUTTONS_PER_LINE) - 1) / (levels.levelArray.size() / BUTTONS_PER_LINE));
@@ -140,7 +137,6 @@ public class ActivityLevelSelector extends Activity {
             double yPosition;
 
             public void run() {
-
                 int height = layout.getHeight();
                 int pos = (int) (height * yPosition);
                 scrollView.scrollTo(0, pos);
