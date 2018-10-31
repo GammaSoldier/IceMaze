@@ -4,21 +4,21 @@
     <string name="button_exit">Exit</string>
     <string name="button_edit">Edit</string>
 
-    <string name="select_level">Select Level</string>
+    <string name="select_level">Choose Level</string>
     <string name="locked_level">You can\'t play this level yet</string>
     <string name="width">Width</string>
     <string name="height">Height</string>
 
     <string name="levelHeader" translatable="false">Level %1$d</string>
     <string name="button_next_level">Next level</string>
-    <string name="button_select_level">Select level</string>
+    <string name="button_select_level">Choose level</string>
 
-    <string name="congrats">Congratulations</string>
+    <string name="congrats">Congratulations!</string>
 
     <!--Level descriptions ********************************************************************* -->
     <string name="levelDescriptionDefault">Just another level</string>
 
-    <string name="levelDescription1">This is the first level</string>
+    <string name="levelDescription1">How to move on ice? \nSwipe your finger on the screen in the direction you want to move. Then I will slide over the ice until I hit an obstacle.\nHelp me get to my goal!</string>
     <string name="levelDescription2">This is the second level</string>
     <string name="levelDescription3">This is the third level</string>
     <string name="level_done">You\'ve made it</string>
