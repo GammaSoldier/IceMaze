@@ -18,7 +18,7 @@
     <!--Level descriptions ********************************************************************* -->
     <string name="levelDescriptionDefault">Just another level</string>
 
-    <string name="levelDescription1">How to move on ice? \nSwipe your finger on the screen in the direction you want to move. Then I will slide over the ice until I hit an obstacle.\nHelp me get to my goal!</string>
+    <string name="levelDescription1">How to move on ice? \n\nSwipe your finger on the screen in the direction you want to move. Then I will slide over the ice until I hit an obstacle.\n\nHelp me get to my goal!</string>
     <string name="levelDescription2">This is the second level</string>
     <string name="levelDescription3">This is the third level</string>
     <string name="level_done">You\'ve made it</string>

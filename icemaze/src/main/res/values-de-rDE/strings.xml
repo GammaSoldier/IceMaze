@@ -8,7 +8,7 @@
     <string name="width">Breite</string>
     <string name="height">Höhe</string>
     <string name="levelDescriptionDefault">Nur ein weiteres Level</string>
-    <string name="levelDescription1">Auf Eis laufen. \nWische mit dem Finger auf dem Display in die Richtung, in welche ich laufen soll. Ich rutsche dann über das Eis bis ich auf ein Hindernis treffe. \nHilf mir an mein Ziel zu gelangen!</string>
+    <string name="levelDescription1">Auf Eis laufen.\n\nWische mit dem Finger auf dem Display in die Richtung, in welche ich laufen soll. Ich rutsche dann über das Eis bis ich auf ein Hindernis treffe. \n\nHilf mir an mein Ziel zu gelangen!</string>
     <string name="levelDescription2">Das zweite Level</string>
     <string name="levelDescription3">Das dritte Level</string>
     <string name="button_next_level">Nächstes Level</string>

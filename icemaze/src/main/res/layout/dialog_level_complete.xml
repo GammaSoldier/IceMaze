@@ -16,19 +16,22 @@
         android:text="@string/congrats"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewLevelComplete"
-        android:layout_width="299dp"
-        android:layout_height="137dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="300dp"
+        android:layout_height="207dp"
+        android:layout_margin="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="56dp"
+        android:background="@color/black_overlay"
+        android:padding="8dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:text="@string/level_done"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button_next_level"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +39,7 @@
 
     <Button
         android:id="@+id/button_next_level"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -48,7 +51,7 @@
 
     <Button
         android:id="@+id/button_select_level"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
