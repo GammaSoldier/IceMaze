@@ -17,6 +17,8 @@ public class ActivityTitle extends Activity {
         @Override
         public void onClick(View v) {
             Intent myIntent = new Intent(getBaseContext(), ActivityLevelSelector.class);
+            // clear back stack.
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(myIntent);
         }// onClick
     };

@@ -93,6 +93,8 @@ public class ActivityPlay extends Activity implements DialogLevelComplete.Dialog
             Intent myIntent = new Intent(getBaseContext(), ActivityLevelTitle.class);
             myIntent.putExtra("Levels", theLevels);
             myIntent.putExtra("int", levelIndex + 1);
+            // clear back stack.
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(myIntent);
         }// else
 
@@ -105,7 +107,7 @@ public class ActivityPlay extends Activity implements DialogLevelComplete.Dialog
         // goto level selector
         Intent myIntent = new Intent(getBaseContext(), ActivityLevelSelector.class);
         // clear back stack.
-        myIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
     }// onDialogSelectLevelClick
 
