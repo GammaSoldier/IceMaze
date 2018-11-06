@@ -19,8 +19,10 @@
     <string name="levelDescriptionDefault">Just another level</string>
 
     <string name="levelDescription1">How to move on ice? \n\nSwipe your finger on the screen in the direction you want to move. Then I will slide over the ice until I hit an obstacle.\n\nHelp me get to my goal!</string>
-    <string name="levelDescription2">This is the second level</string>
-    <string name="levelDescription3">This is the third level</string>
+    <string name="levelDescription2">Obstacles might block my way. Try to get around them.</string>
+    <string name="levelDescription3">You\'ve got it. Lets try another one.</string>
+    <string name="levelDescription4">OK Buddy, here we go again.</string>
+    <string name="levelDescription5">Sometimes when I\'m sliding over the ice, an ice floe arises and becomes another obstacle.\n\nSo I can cross this position only once.</string>
     <string name="level_done">You\'ve made it</string>
     <string name="finalLevelDone">You\' ve made it. You just finished the final level. \n\nThank you for playing</string>
 

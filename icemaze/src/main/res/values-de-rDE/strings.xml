@@ -9,12 +9,14 @@
     <string name="height">Höhe</string>
     <string name="levelDescriptionDefault">Nur ein weiteres Level</string>
     <string name="levelDescription1">Auf Eis laufen.\n\nWische mit dem Finger auf dem Display in die Richtung, in welche ich laufen soll. Ich rutsche dann über das Eis bis ich auf ein Hindernis treffe. \n\nHilf mir an mein Ziel zu gelangen!</string>
-    <string name="levelDescription2">Das zweite Level</string>
-    <string name="levelDescription3">Das dritte Level</string>
+    <string name="levelDescription2">Hindernisse können meinen Weg blockieren. Versuche es außen rum.</string>
+    <string name="levelDescription3">OK, du hast es raus. Lass es uns nochmal versuchen.</string>
     <string name="button_next_level">Nächstes Level</string>
     <string name="button_select_level">Level wählen</string>
     <string name="locked_level">Du kannst dieses Level noch nicht spielen</string>
     <string name="congrats">Herzlichen Glückwunsch</string>
     <string name="level_done">Du hast es geschafft.</string>
     <string name="finalLevelDone">Du hast es geschafft. Du hast alle Levels geschafft und bist am Ziel deiner Reise.\n\nVielen Dank für\'s Spielen!</string>
+    <string name="levelDescription4">OK Kumpel, und ein weiteres Mal.</string>
+    <string name="levelDescription5">Ab und zu, wenn ich über das Eis gleite, stellt sich eine Eisscholle auf und wird so zu eineme Hindernis. \n\nIch kann diese Stettle also nur ein mal überqueren.</string>
 </resources>
