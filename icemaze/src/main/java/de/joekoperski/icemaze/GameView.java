@@ -148,7 +148,7 @@ public class GameView extends SurfaceView implements Callback {
         try {
             TimeUnit.MILLISECONDS.sleep(80);
         } // try
-        catch (InterruptedException exeption) {
+        catch (InterruptedException exception) {
             Log.d("GameView", "renderPlayfield InterruptedException");
         }// catch
 
