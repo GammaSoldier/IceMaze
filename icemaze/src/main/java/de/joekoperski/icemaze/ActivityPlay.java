@@ -1,6 +1,11 @@
 // TODO: 05.10.2018: Smooth animation 
 // TODO: 05.10.2018: make editor only available in debug version
 // TODO: 14.11.2018: Sound
+// TODO: 19.11.2018: Icon
+// TODO: 19.11.2018: Graphics rework
+// TODO: 19.11.2018: Levels, levels, levels 
+
+
 package de.joekoperski.icemaze;
 
 import android.app.Activity;
